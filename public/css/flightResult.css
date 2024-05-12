@@ -1,0 +1,51 @@
+.mystyle{
+    border: 2px solid black;
+}
+.flightPriceBorder{
+    border: 5px solid black;
+}
+.flightPriceBackground{
+    background-color:red;
+    color: white;
+}
+.flightPriceFont{
+    font-weight:bold;
+    font-size: large;
+}
+
+.flightListingBackground{
+    background: radial-gradient(666px at 0.4% 48%, rgb(202, 204, 227) 0%, rgb(89, 89, 99) 97.5%);
+    font-weight: bold;
+}
+
+.advert-box-2{
+    width: 150px;
+    height: 550px;
+    border: 1px solid black;
+    float: right ;
+    background-color: red;
+}
+.advert-box-1{
+    width: 150px;
+    height: 550px;
+    border: 1px solid black;
+    float: left ;
+    background-color: red;
+}
+
+
+#data{
+   
+
+}
+body {
+    background-color: lightgreen;
+  }
+@media screen and (max-width: 1100px) {
+    .advert-box-1{
+    display: none;
+    }
+    .advert-box-2{
+    display: none;
+    }
+  }
