@@ -13,30 +13,11 @@
         <button id="post">Post</button>
     </form>
 
+    <center><pre id="data"></pre></center>
+<!-- 
     <div id="answer">
 
-    </div>
+    </div> -->
 </body>
-<script>
-    const getBtn = document.getElementById("get");
-    const postBtn = document.getElementById("post");
-    const input = document.getElementById("input");
-    const answer = document.getElementById("answer");
-    const baseUrl = "http://localhost:5000/flightData";
-
-    getBtn.addEventListener("click", getInfo)
-    async function getInfo(e){
-        e.preventDefault();
-        const res = await fetch(baseUrl,{
-            method: "GET"
-        });
-        const data = await res.json();
-        // console.log(await res.json());
-        answer.innerText = JSON.stringify(data, null , 4)
-        
-    }
-    async function postInfo(){
-
-    }
-</script>
+<script src="./js/testFlight.js"></script>
 </html>

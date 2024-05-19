@@ -45,10 +45,14 @@
                 <div class="travel-panel">
                     <h2>Flights</h2>
                     <label>Origin:</label>
-                    <input id="flightOrigin" type="search" placeholder="Search" aria-label="Search">
+                    <div class="origin-autocomplete" style="width:300px;">
+                      <input id="originMyInput" class="originInput" type="text" name="origin" placeholder="Origin">
+                    </div>
                     
                     <label>Destination:</label>
-                    <input id="flightDestination" type="search" placeholder="Search" aria-label="Search">
+                    <div class="destination-autocomplete" style="width:300px;">
+                      <input id="destinationMyInput" class="destinationInput" type="text" name="destination" placeholder="Destination">
+                    </div>
                     <span>
                     <label>Departure Date:</label>
                     <br>

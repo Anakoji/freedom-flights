@@ -260,8 +260,8 @@ app.get("/flightData", (req, res) =>{
 //     let flightData;
 //     let text = "";
 //     amadeus.shopping.flightOffersSearch.get({
-//         originLocationCode: 'SYD',
-//         destinationLocationCode: 'BKK',
+//         originLocationCode: 'YYZ',
+//         destinationLocationCode: 'LOS',
 //         departureDate: '2024-09-09',
 //         // returnDate:'2023-12-12',
 //         adults: '1'

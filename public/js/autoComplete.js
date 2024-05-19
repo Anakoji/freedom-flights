@@ -1,66 +1,307 @@
-let availableKeywords = [
-    'Wrangell, AK 	USA 	(WRG)',
-'Wroclaw	Poland	(WRO)',
-'Wuhan	China	(WUH)',
-'Xi an	China	(XIY)',
-'Xiamen	China	(XMN)',
-'Xichang	China	(XIC)',
-'Yakima, WA 	USA 	(YKM)',
-'Yakutat, AK 	USA 	(YAK)',
-'Yamagata	Japan	(GAJ)',
-'Yangyang, Korea	Republic of	(YNY)',
-'Yanji	China	(YNJ)',
-'Yantai	China	(YNT)  ',
-'Yaounde	Cameroon	(NSI)',
-'Yaounde	Cameroon	(YAO)',
-'Yap	Micronesia	(YAP)',
-'Yellowknife, NWT	Canada	(YZF)',
-'Yellowknife, NWT	Canada 	(YZF)',
-'Yerevan	Armenia	(EVN)',
-'Yogyakarta, Java	Indonesia	(JOG)',
-'Yuma, AZ 	USA 	(YUM)',
-'Zacatecas	Mexico	(ZCL)',
-'Zadar	Croatia	(ZAD)',
-'Zagreb	Croatia	(ZAG)',
-'Zamboanga	Philippines	(ZAM)',
-'Zanzibar	Tanzania	(ZNZ)',
-'Zaragoza	Spain	(ZAZ)',
-'Zhengzhou	China	(CGO)',
-'Zhoushan	China	(HSN)',
-'Zurich	Switzerland	(ZRH)'
 
-];
+// async function autoCompleteJs(){
+    
+//     const cities = await fetch("../json/airports.json");
+//     const loadedCities = await cities.json();
+//     const countries = [];    
 
-const resultsBox = document.querySelector(".result-box");
-const inputBox = document.getElementById('input-box');
-
-inputBox.onkeyup = function(){
-    let result = [];
-    let input = inputBox.value;
-
-    if(input.length){
-        result = availableKeywords.filter((keyword) => {
-           return keyword.toLowerCase().includes(input.toLowerCase());
+//     for(let i = 0; i < 10; i++){
         
-        });
-        console.log(result);
-    }
-    display(result);
+//         let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+        
+//         countries.push(citieFinal);
+//     }
 
-    if(!result.length){
-        resultsBox.innerHTML = '';
-    }
-}
+ 
 
-function display(result){
-    const content = result.map((list) =>{
-        return "<li onclick=selectInput(this)>" + list + "</li>";
+//     let getOriginInput = document.getElementById("originInput");
+//     let putItemsInBox = document.getElementById("autoComplete-Box-id");
+//     getRidOfBox()
+//     getOriginInput.addEventListener("input", function(e) {
+      
+
+     
+//       getRidOfBox()
+//       for(let i = 0; i < countries.length; i++){
+//         if(countries[i].substr(0, e.target.value.length).toUpperCase() == e.target.value.toUpperCase()){
+//           // console.log("Matching: " + countries[i] + " " + e.target.value);
+//           console.log("Count: " + i);
+//          let listContainer = document.createElement("div");
+//          let querySelectListcontainer = document.querySelectorAll("#list-container");
+//          listContainer.id = "list-container";
+
+//          listContainer.innerText=countries[i];
+//         //  resetBox()
+//          document.getElementById("autoComplete-Box-id").appendChild(listContainer);
+        
+//          for(let n = 0; n < document.querySelectorAll("#list-container").length;n++){
+        
+        
+//          }
+//           // putItemsInBox.innerHTML += "<div>" +countries[i] +"</div>";
+        
+          
+         
+//         }
+
+//         if(e.target.value.length == 0){
+//           putItemsInBox.innerText = ""; 
+//         }
+
+//       }
+  
+//     });
+
+//     // function resetBox(){
+//     //   let resetValue = document.getElementById("list-container");
+//     //   resetValue.removeChild();
+//     // }
+
+//     function getRidOfBox(){
+//       if(getOriginInput.value == ""){
+//         let autoCompleteBox = document.getElementById("autoComplete-Box-id");
+//         autoCompleteBox.style.display="none";
+//       }else{
+//         let autoCompleteBox = document.getElementById("autoComplete-Box-id");
+//         autoCompleteBox.style.display="";
+//       }
+//     }
+
+
+// }
+
+// autoCompleteJs()
+
+
+async function originautocomplete() {
+    let inp = document.getElementById("originMyInput");
+    const cities = await fetch("../json/airports.json");
+    const loadedCities = await cities.json();
+    let countries = [];    
+    let arr;
+    for(let i = 0; i < loadedCities.length; i++){
+        
+        let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+        
+        countries.push(citieFinal);
+    }
+    arr = countries;
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+     
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+     
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "origin-autocomplete-list");
+        a.setAttribute("class", "origin-autocomplete-items");
+
+        /*append the DIV element as a child of the autocomplete container:*/
+       
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              console.log("arr:" + inp.value.slice(-3));
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
     });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "origin-autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+    });
+    function addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      /*add class "autocomplete-active":*/
+      x[currentFocus].classList.add("origin-autocomplete-active");
+    }
+    function removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("origin-autocomplete-active");
+      }
+    }
+    function closeAllLists(elmnt) {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var x = document.getElementsByClassName("origin-autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+     
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+  }
 
-    resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
-}
+  async function destinationautocomplete() {
+    let inp = document.getElementById("destinationMyInput");
+    const cities = await fetch("../json/airports.json");
+    const loadedCities = await cities.json();
+    let countries = [];    
+    let arr;
+    for(let i = 0; i < loadedCities.length; i++){
+        
+        let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+        
+        countries.push(citieFinal);
+    }
+    arr = countries;
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+     
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+     
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "destination-autocomplete-list");
+        a.setAttribute("class", "destination-autocomplete-items");
 
-function selectInput(list){
-    inputBox.value = list.innerHTML;
-    resultsBox.innerHTML = '';
-}
+        /*append the DIV element as a child of the autocomplete container:*/
+       
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              console.log("arr:" + inp.value.slice(-3));
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "destination-autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+    });
+    function addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      /*add class "autocomplete-active":*/
+      x[currentFocus].classList.add("destination-autocomplete-active");
+    }
+    function removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("destination-autocomplete-active");
+      }
+    }
+    function closeAllLists(elmnt) {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var x = document.getElementsByClassName("destination-autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+     
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+  }
+
+  destinationautocomplete()
+  originautocomplete();

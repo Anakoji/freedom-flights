@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/searchBox.css"/>
+    <link rel="stylesheet" href="./css/autoCompleteSug.css"/>
     <title>Search Box</title>
 </head>
 <body>
+    <form autocomplete="off" action="/action_page.php">
+        <div class="origin-autocomplete" style="width:300px;">
+          <input id="originMyInput" class="originInput" type="text" name="origin" placeholder="Origin">
+        </div>
+        <br>
+        <br>
+        <div class="destination-autocomplete" style="width:300px;">
+          <input id="destinationMyInput" class="destinationInput" type="text" name="destination" placeholder="Destination">
+        </div>
     
-    <div class="search-box">
-        <div class="row">
-            <input type="text" id="input-box" placeholder="Search Flight" autocomplete="off">
-            <button>Search</button>
-            
-        </div>
-        <div class="result-box">
-           
-        </div>
-    </div>
+      </form>
+<br>
+<br>
+<br>
 
-    <script src="./js/autoComplete.js"></script>
+
+
+      </form>
 </body>
+<script src="./js/autoComplete.js"></script>
 </html>
