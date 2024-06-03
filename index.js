@@ -15,9 +15,9 @@ var amadeus = new Amadeus({
   clientSecret: api_key_secret
 });
 const flightTestData = require("./json/flightNewData");
-
-app.use(express.static('public'))
-
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static('public'))
+app.use(express.json());
 
 
 // async function getFlights(flightData){
@@ -26,8 +26,57 @@ app.use(express.static('public'))
   
 // }
 
+
+app.get("/", (req, res) =>{
+  res.sendFile(__dirname + "/public/index.html");
+ 
+});
+
+app.post("/postIataOriginRoute", (req, res) =>{
+  console.log("Origin: ");
+  console.log( req.body.iataOrigin);
+  app.set('iataOrigin', req.body.iataOrigin);
+ 
+ 
+});
+app.post("/postIataDestRoute", (req, res) =>{
+  console.log("Destination: ");
+  console.log( req.body.iataDestination);
+  console.log( req.body.iataDest);
+  app.set('iataDestination', req.body.iataDestination);
+  
+
+ 
+});
+app.post("/postDestDateRoute", (req, res) =>{
+  console.log("Date: ");
+  console.log( req.body.destDate);
+  app.set('destinationDate', req.body.destDate);
+});
+app.post("/postTestRoute", (req, res) =>{
+  console.log("posting");
+  console.log( req.body.iataDestination);
+  console.log( req.body.iataOrigin);
+  app.set('data', req.body.iataDestination);
+  
+  res.redirect();
+ 
+});
+app.get("/getTestRoute", (req, res) =>{
+  console.log("Redirecting.... ");
+
+  res.redirect("/testFlights");
+console.log("redirected");
+  // console.log( req.body.test);
+  // console.log({retrieveIataOrginData:app.get('iataOrigin')});
+  // console.log({retrieveIataDestData:app.get('iataDestination')});
+  // console.log({retrieveIataDestData:app.get('destinationDate')});
+ 
+});
 app.get("/testFlights", (req, res) =>{
   res.sendFile(__dirname + "/public/testFlight.html");
+  console.log("Test flight");
+  // console.log({retrieveData:app.get('data')});
  
 });
 app.get("/flightData", (req, res) =>{
@@ -264,6 +313,7 @@ app.get("/flightData", (req, res) =>{
 //         destinationLocationCode: 'LOS',
 //         departureDate: '2024-09-09',
 //         // returnDate:'2023-12-12',
+//         travelClass: 'BUSINESS',
 //         adults: '1'
 //     }).then(async function(response){
 //         flightData = response.data;
@@ -286,7 +336,7 @@ app.get("/flightData", (req, res) =>{
 //     hostname: 'production'
 //   });
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 

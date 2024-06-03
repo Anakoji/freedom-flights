@@ -3,7 +3,7 @@ const postBtn = document.getElementById("post");
 const input = document.getElementById("input");
 const answer = document.getElementById("answer");
 const baseUrl = "http://localhost:5000/flightData";
-
+console.log("Opened");
 getBtn.addEventListener("click", getInfo)
 async function getInfo(e){
     e.preventDefault();
@@ -162,3 +162,4 @@ async function postInfo(){
 
 }
 }
+

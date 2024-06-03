@@ -26,15 +26,6 @@ function openModal(){
     modal.style.display = 'block';
 }
 
-function checking(){
-    if(document.getElementById('flexSwitchCheckDefault').checked){
-      console.log('Round Trip');
-      document.getElementById('returnDate').style.display = 'block';
-    }else{
-      console.log('No Round trip');
-      document.getElementById('returnDate').style.display = 'none';
-    }
-  }
   function validateOriginInput(e){
     
     // document.getElementById('flightOrigin').value = "YYZ";
@@ -56,7 +47,7 @@ function checking(){
   
 async function originautocomplete() {
   let inp = document.getElementById("originMyInput");
-  const cities = await fetch("../json/airports.json");
+  const cities = await fetch("./json/airports.json");
   const loadedCities = await cities.json();
   let countries = [];    
   let arr;
@@ -71,7 +62,7 @@ async function originautocomplete() {
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function(e) {
+  inp.addEventListener("input", async function(e) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
       closeAllLists();
@@ -99,10 +90,24 @@ async function originautocomplete() {
           /*insert a input field that will hold the current array item's value:*/
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
           /*execute a function when someone clicks on the item value (DIV element):*/
-          b.addEventListener("click", function(e) {
+          b.addEventListener("click", async function(e) {
             /*insert the value for the autocomplete text field:*/
+            // submitValidation()
             inp.value = this.getElementsByTagName("input")[0].value;
-            console.log("arr:" + inp.value.slice(-3));
+            let iataOriginCode;
+            iataOriginCode = inp.value.slice(-3);
+            const baseUrl = "http://localhost:5000/postIataOriginRoute"
+            const destPost = await fetch(baseUrl,{
+              method:"POST",
+              headers: {
+                "Content-Type": 'application/json'
+              },
+              body:JSON.stringify({
+                iataOrigin:iataOriginCode
+              })
+            });
+            
+            console.log("origin:" + inp.value.slice(-3));
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
@@ -169,9 +174,10 @@ document.addEventListener("click", function (e) {
 });
 }
 
-async function destinationautocomplete() {
+
+async function destinationautocomplete(iataDestinationCode) {
   let inp = document.getElementById("destinationMyInput");
-  const cities = await fetch("../json/airports.json");
+  const cities = await fetch("./json/airports.json");
   const loadedCities = await cities.json();
   let countries = [];    
   let arr;
@@ -186,7 +192,7 @@ async function destinationautocomplete() {
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function(e) {
+  inp.addEventListener("input", async function(e) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
       closeAllLists();
@@ -214,14 +220,32 @@ async function destinationautocomplete() {
           /*insert a input field that will hold the current array item's value:*/
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
           /*execute a function when someone clicks on the item value (DIV element):*/
-          b.addEventListener("click", function(e) {
+          b.addEventListener("click", async function(e) {
             /*insert the value for the autocomplete text field:*/
             inp.value = this.getElementsByTagName("input")[0].value;
-            console.log("arr:" + inp.value.slice(-3));
+            let iataDestinationCode;
+     
+            // iataDestinationCode = inp.value;
+            iataDestinationCode = inp.value.slice(-3);
+            
+            const baseUrl = "http://localhost:5000/postIataDestRoute"
+            const destPost = await fetch(baseUrl,{
+              method:"POST",
+              headers: {
+                "Content-Type": 'application/json'
+              },
+              body:JSON.stringify({
+                iataDestination:iataDestinationCode
+                
+              })
+            });
+            console.log("destination:" + inp.value.slice(-3));
+            console.log("baseurl: " +baseUrl );
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
           });
+          
           a.appendChild(b);
         }
       }
@@ -282,11 +306,182 @@ async function destinationautocomplete() {
 document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
+
+return await iataDestinationCode;
 }
 
-destinationautocomplete()
-originautocomplete();
+async function getIataFlightData(){
+  const testButton =  document.getElementById("getTestButton");
+  const baseUrl = "http://localhost:5000/getTestRoute"
+  testButton.addEventListener('click', async function getIataData(e){
+    e.preventDefault();
+    const res = await fetch(baseUrl,{
+      method:"GET"
+    });
 
+    console.log("Getting Iata data");
+  });
+
+}
+async function postIataFlightData(){
+  const testButton =  document.getElementById("postTestButton");
+  const baseUrl = "http://localhost:5000/postTestRoute"
+  testButton.addEventListener('click', async function getIataData(e){
+    e.preventDefault();
+    const res = await fetch(baseUrl,{
+      method:"POST",
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body:JSON.stringify({
+        test:"Front End Data"
+      })
+    });
+    console.log("redirecting...");
+// window.location.href = "http://localhost:5000/testFlights"
+  });
+
+}
+
+async function setMinDate(){
+
+  let getDateId = document.getElementById("departureDate");
+  let date = new Date();
+  let month = date.getMonth();
+  let day = date.getDate();
+  let year = date.getFullYear();
+
+  month = month + 1;
+  console.log("Year: " + year);
+  if(day < 10){
+    day = "0" + day.toString();
+  }
+  if(month < 10){
+    month = "0" + month.toString();
+    console.log("get month = " + month);
+    
+  }
+  // console.log(year.toString() + "-" + month.toString() + "-" + day.toString());
+  // getDateId.min = "2024-05-20";
+  getDateId.min = year.toString() + "-" + month.toString() + "-" + day.toString();
+
+
+
+  console.log("date value: " + getDateId.value);
+
+  console.log(date);
+}
+
+async function getDepartureDate(){
+  let getDepartureDateId = document.getElementById("departureDate");
+
+  getDepartureDateId.onchange = async function postDepartureDate(){
+    if(getDepartureDateId.value.length == 10){
+      const baseUrl = "http://localhost:5000/postDestDateRoute"
+   
+  
+        const postDate = await fetch(baseUrl,{
+          method:"POST",
+          headers: {
+            "Content-Type": 'application/json'
+          },
+          body:JSON.stringify({
+            destDate: getDepartureDateId.value
+          })
+      });
+
+    }
+  }
+
+
+}
+
+
+async function submitValidation(){
+  const cities = await fetch("./json/airports.json");
+  const loadedCities = await cities.json();
+  let countries = [];    
+  let getDestInput = document.getElementById("destinationMyInput");
+
+  for(let i = 0; i < loadedCities.length; i++){
+      
+      let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+      
+      countries.push(citieFinal);
+  }
+
+ 
+  getDestInput.addEventListener("change", async function (e){
+
+  let getInput = e.target.value;
+  console.log("Your input is: " + getInput);
+
+  // for(let n = 0; n<countries.length; n++){
+  // if(countries[n] != getInput){
+  //   console.log("Disabled");
+  // }
+  // }
+  const baseUrl = "http://localhost:5000/destValidation"
+   
+  
+  const postDate = await fetch(baseUrl,{
+    method:"POST",
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    body:JSON.stringify({
+      destValid: getInput
+    })
+});
+  // countries.forEach(country =>{
+  //   if(country !=  getInput){
+  //     console.log("False: ");
+  //   }
+  // })
+ console.log("Testing Async!");
+});
+
+
+}
+
+
+function checking(){
+  if(document.getElementById('flexSwitchCheckDefault').checked){
+    console.log('Round Trip');
+    document.getElementById('returnDate').style.display = 'block';
+  }else{
+    console.log('No Round trip');
+    document.getElementById('returnDate').style.display = 'none';
+  }
+}
+
+
+async function searchFlight(){
+  const testButton =  document.getElementById("modal-Button");
+  const baseUrl = "http://localhost:5000/getTestRoute"
+  testButton.addEventListener('click', async function getIataData(e){
+    e.preventDefault();
+    const res = await fetch(baseUrl,{
+      method:"GET"
+    });
+
+    console.log("Testing redirection");
+    function windowRedirect(){
+      window.location.href = "http://localhost:5000/testFlights"
+
+    }
+    const myTimeout = setTimeout(windowRedirect, 10000);
+  });
+
+}
+
+getDepartureDate();
+setMinDate();
+getIataFlightData()
+postIataFlightData()
+destinationautocomplete();
+originautocomplete();
+searchFlight();
 
 
   // document.getElementById("flightOrigin").addEventListener("load", originLoad);
