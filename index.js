@@ -5,26 +5,70 @@ const PORT = process.env.PORT || 5000;
 // var Amedeus = require('amadeus');
 const carsRoute = require("./router/cars");
 const hotelsRoute = require("./router/hotels");
+const aboutUsRoute = require("./router/aboutUs");
+const contactUsRoute = require("./router/contactUs");
+const employmentRoute = require("./router/employment");
+const testF = require("./router/testFlight");
 var Amadeus = require('amadeus');
 require('dotenv').config()
 const api_key = process.env.API_KEY;
 const api_key_secret = process.env.API_KEY_SECRET;
-
+// const flightTestData = require("./json/flightNewData");
 var amadeus = new Amadeus({
   clientId: api_key,
   clientSecret: api_key_secret
+  // ,
+  // hostname: 'production'
 });
-const flightTestData = require("./json/flightNewData");
+// const flightTestData = require("./json/flightNewData");
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static('public'))
 app.use(express.json());
 
+// app.post("/flightCreateOrder", async function (req, res) {
+//   res.json(req.body);
 
-// async function getFlights(flightData){
-//   console.log("Waited for flights");
-//   console.log(flightData);
-  
-// }
+//   let inputFlightCreateOrder = req.body;
+//   console.log(req.body);
+//   const returnBokkin = amadeus.booking.flightOrders
+//     .post(
+//       JSON.stringify({
+//         data: {
+//           type: "flight-order",
+//           flightOffers: [inputFlightCreateOrder],
+//           travelers: [
+//             {
+//               id: "1",
+//               dateOfBirth: "2012-10-11",
+//               gender: "FEMALE",
+//               contact: {
+//                 emailAddress: "jorge.gonzales833@telefonica.es",
+//                 phones: [
+//                   {
+//                     deviceType: "MOBILE",
+//                     countryCallingCode: "34",
+//                     number: "480080076",
+//                   },
+//                 ],
+//               },
+//               name: {
+//                 firstName: "ADRIANA",
+//                 lastName: "GONZALES",
+//               },
+//             },
+//           ],
+//         },
+//       })
+//     )
+//     .then(function (response) {
+//       console.log(response.result);
+//       confirmOrder = response.result;
+//     })
+//     .catch(function (responseError) {
+//       console.log(responseError);
+//     });
+// });
+
 
 
 app.get("/", (req, res) =>{
@@ -42,301 +86,195 @@ app.post("/postIataOriginRoute", (req, res) =>{
 app.post("/postIataDestRoute", (req, res) =>{
   console.log("Destination: ");
   console.log( req.body.iataDestination);
-  console.log( req.body.iataDest);
+  // console.log( req.body.iataDest);
   app.set('iataDestination', req.body.iataDestination);
   
-
- 
 });
 app.post("/postDestDateRoute", (req, res) =>{
-  console.log("Date: ");
+  console.log("Destination Date: ");
   console.log( req.body.destDate);
   app.set('destinationDate', req.body.destDate);
 });
-app.post("/postTestRoute", (req, res) =>{
-  console.log("posting");
-  console.log( req.body.iataDestination);
-  console.log( req.body.iataOrigin);
-  app.set('data', req.body.iataDestination);
-  
-  res.redirect();
- 
+app.post("/postReturnDateRoute", (req, res) =>{
+  console.log("Return Date: ");
+  console.log( req.body.returnDate);
+  app.set('returnDate', req.body.returnDate);
 });
-app.get("/getTestRoute", (req, res) =>{
-  console.log("Redirecting.... ");
-
-  res.redirect("/testFlights");
-console.log("redirected");
-  // console.log( req.body.test);
-  // console.log({retrieveIataOrginData:app.get('iataOrigin')});
-  // console.log({retrieveIataDestData:app.get('iataDestination')});
-  // console.log({retrieveIataDestData:app.get('destinationDate')});
- 
+app.post("/cabin", (req, res) =>{
+  console.log("Cabin: " + req.body.selectedCabin);
+  app.set('typeOfCabin', req.body.selectedCabin);
 });
-app.get("/testFlights", (req, res) =>{
-  res.sendFile(__dirname + "/public/testFlight.html");
-  console.log("Test flight");
-  // console.log({retrieveData:app.get('data')});
- 
+app.post("/adults", (req, res) =>{
+  console.log("Adults: " + req.body.amountOfAdults);
+  app.set('numberOfAdults', req.body.amountOfAdults);
 });
-app.get("/flightData", (req, res) =>{
-  // res.send(flightTestData);
- 
-  let c = 0; 
-  let testFlightDataFinal = [];
-  let flightListings = [];
-  for(let i = 0; i < flightTestData.length; i++){
-    // console.log("Flight ID: "+flightTestData[i].id);
-    let departureArrayVariable=[];
-    let arrivalArrayVariable=[];
-    let departureTerminalArray=[];
-    let arrivalTerminalArray=[];
-    let departureAtArray=[];
-    let arrivalAtArray=[];
-    let segmentIdArray=[];
-    let cabinArray=[];
-    let classArray=[];
-    let carrierCodeArray = [];
-    let aircraftCodeArray = [];
-    let currency1 = flightTestData[i].price.currency;
-    let grandTotal1 = flightTestData[i].price.grandTotal;
-  
-  
-    // console.log("Last Ticketing Date: "+flightTestData[i].lastTicketingDate);
-    // console.log("Number of Seats avaialable: "+flightTestData[i].numberOfBookableSeats);
+app.post("/gettingPricingFlightNumber", (req, res) =>{
+  console.log("Pricing Number: " + req.body.priceNumber);
+  app.set('pricingNumber', req.body.priceNumber);
+  const flightOffersResponse = app.get("flightFlightData");
+  const flightOffersPrice = app.get("pricingNumber");
 
-    for(let d = 0; d < flightTestData[i].itineraries.length; d++){
-      // console.log("Duration: "+flightTestData[i].itineraries[d].duration);
-      function flightDurration(){
-        return flightTestData[i].itineraries[d].duration
-      }
-      for(let c = 0; c < flightTestData[i].itineraries[d].segments.length; c++ ){
-       
-        
-        let departure = flightTestData[i].itineraries[d].segments[c].departure.iataCode;
-        let arrival = flightTestData[i].itineraries[d].segments[c].arrival.iataCode
-        let carrierCode = flightTestData[i].itineraries[d].segments[c].carrierCode;
-        let aircraftCode = flightTestData[i].itineraries[d].segments[c].aircraft.code;
-        
-        aircraftCodeArray.push(aircraftCode);
-        carrierCodeArray.push(carrierCode);
-       
-        departureArrayVariable.push(departure);
-        arrivalArrayVariable.push(arrival);
-        
-        
-        if(flightTestData[i].itineraries[d].segments[c].arrival.terminal){
-      
-          let arrivalTerminal = flightTestData[i].itineraries[d].segments[c].arrival.terminal;
-         
-          arrivalTerminalArray.push(arrivalTerminal);
-        
-          
-        }
-        if(flightTestData[i].itineraries[d].segments[c].departure.terminal){
-          let departureTerminal = flightTestData[i].itineraries[d].segments[c].departure.terminal;
-          departureTerminalArray.push(departureTerminal);
-        }
-        let departAt = flightTestData[i].itineraries[d].segments[c].departure.at;
-        let arriveAt = flightTestData[i].itineraries[d].segments[c].arrival.at;
-        departureAtArray.push(departAt);
-        arrivalAtArray.push(arriveAt);
-       
-      }
+  console.log("Flight: " + JSON.stringify(flightOffersResponse[flightOffersPrice]));
 
-    }
-    
-    for(let a = 0 ; a < flightTestData[i].travelerPricings.length; a++ ){
-
-      // console.log("Traveler Type: "+flightTestData[i].travelerPricings[a].travelerType);
-      for(let b = 0; b < flightTestData[i].travelerPricings[a].fareDetailsBySegment.length; b++){
-        // console.log("Fare by segment: "+flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].segmentId);
-        // console.log("Cabin: "+flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].cabin);
-        // console.log("Class: "+flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].class);
-        let segmentId = flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].segmentId;
-        segmentIdArray.push(segmentId);
-       let cabin = flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].cabin;
-       cabinArray.push(cabin);
-        let classOfService = flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].class;
-        classArray.push(classOfService);
-      }
-    }
-    testFlightDataFinal = [
-      {"flight_ID":flightTestData[i].id},
-      {"last_Ticketing_Date":flightTestData[i].lastTicketingDate },
-      {"test_Function": [testDataFunction()]},
-      {"number_of_Seats_avaialable": flightTestData[i].numberOfBookableSeats},
-      {"duration": flightDurration()},
-      {"departure": departureArrayVariable},
-      {"arrival": arrivalArrayVariable},
-      {"departure_terminal": departureTerminalArray},
-      {"arrival_terminal": arrivalTerminalArray},
-      {"departure_at": departureAtArray},
-      {"arrival_at": arrivalAtArray},
-      {"currency": currency1},
-      {"grand_Total": grandTotal1},
-      {"segment_id": segmentIdArray},
-      {"cabin": cabinArray},
-      {"class": classArray},
-      {"carrier": carrierCodeArray},
-      {"aircraft_code": aircraftCodeArray},
-     
-    ];
-    function testDataFunction(){
-      return "Hello World"
-    }
-    flightListings.push(testFlightDataFinal);
-  
-    console.log("Flight Id function: "+JSON.stringify(testFlightDataFinal, null, 2));
-  }
-  res.send(flightListings)
+  app.set('priceValidated', flightOffersResponse[flightOffersPrice]);
+  res.redirect('/pricingRoute')
 });
 
-// async function getFlights(flightData){
-//   console.log("Waited for flights");
-//   let c = 0; 
-//   let testFlightDataFinal = [];
-//   let flightListings = [];
-//   for(let i = 0; i < flightData.length; i++){
-    
-//     let departureArrayVariable=[];
-//     let arrivalArrayVariable=[];
-//     let departureTerminalArray=[];
-//     let arrivalTerminalArray=[];
-//     let departureAtArray=[];
-//     let arrivalAtArray=[];
-//     let segmentIdArray=[];
-//     let cabinArray=[];
-//     let classArray=[];
-//     let carrierCodeArray = [];
-//     let aircraftCodeArray = [];
-//     let currency1 = flightData[i].price.currency;
-//     let grandTotal1 = flightData[i].price.grandTotal;
-  
-  
-  
+app.get("/sendDataToItinirary", (req, res) =>{
 
-//     for(let d = 0; d < flightData[i].itineraries.length; d++){
-//       // console.log("Duration: "+flightTestData[i].itineraries[d].duration);
-//       function flightDurration(){
-//         return flightData[i].itineraries[d].duration
-//       }
-//       for(let c = 0; c < flightData[i].itineraries[d].segments.length; c++ ){
-       
-        
-//         let departure = flightData[i].itineraries[d].segments[c].departure.iataCode;
-//         let arrival = flightData[i].itineraries[d].segments[c].arrival.iataCode
-//         let carrierCode = flightData[i].itineraries[d].segments[c].carrierCode;
-//         let aircraftCode = flightData[i].itineraries[d].segments[c].aircraft.code;
-        
-//         aircraftCodeArray.push(aircraftCode);
-//         carrierCodeArray.push(carrierCode);
-       
-//         departureArrayVariable.push(departure);
-//         arrivalArrayVariable.push(arrival);
-        
-        
-//         if(flightData[i].itineraries[d].segments[c].arrival.terminal){
-      
-//           let arrivalTerminal = flightData[i].itineraries[d].segments[c].arrival.terminal;
-         
-//           arrivalTerminalArray.push(arrivalTerminal);
-        
-          
-//         }
-//         if(flightData[i].itineraries[d].segments[c].departure.terminal){
-//           let departureTerminal = flightData[i].itineraries[d].segments[c].departure.terminal;
-//           departureTerminalArray.push(departureTerminal);
-//         }
-//         let departAt = flightData[i].itineraries[d].segments[c].departure.at;
-//         let arriveAt = flightData[i].itineraries[d].segments[c].arrival.at;
-//         departureAtArray.push(departAt);
-//         arrivalAtArray.push(arriveAt);
-       
-//       }
+  res.sendFile(__dirname + "/public/itinerary.html");
+  // res.redirect("/itinirary");
+});
 
+app.get("/itinirary", (req, res) =>{
+  const data = [];
+  
+  data.push(app.get('priceValidated'))
+
+  console.log("Itinirary Route");
+
+  res.send(data);
+
+ 
+});
+
+// app.get("/getItinirary", (req, res) =>{
+//   console.log("Send Data To Itinirary");
+//   res.sendFile(__dirname + "/public/itinerary.html");
+  
+// });
+// app.get("/jsonMyRoute", (req, res) =>{
+//  console.log("Test Route json my route");
+// //  console.log(app.get("flightFlightData"));
+//  let flightData = app.get("flightFlightData")
+// let myError;
+//  console.log(typeof flightData);
+//  amadeus.shopping.flightOffers.pricing.post(
+//    JSON.stringify({  
+//      data: {
+//       type: "flight-offers-pricing",
+//        flightOffers: flightData,
+//       },
 //     }
-    
-//     for(let a = 0 ; a < flightData[i].travelerPricings.length; a++ ){
-
-//       // console.log("Traveler Type: "+flightTestData[i].travelerPricings[a].travelerType);
-//       for(let b = 0; b < flightData[i].travelerPricings[a].fareDetailsBySegment.length; b++){
-//         // console.log("Fare by segment: "+flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].segmentId);
-//         // console.log("Cabin: "+flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].cabin);
-//         // console.log("Class: "+flightTestData[i].travelerPricings[a].fareDetailsBySegment[b].class);
-//         let segmentId = flightData[i].travelerPricings[a].fareDetailsBySegment[b].segmentId;
-//         segmentIdArray.push(segmentId);
-//        let cabin = flightData[i].travelerPricings[a].fareDetailsBySegment[b].cabin;
-//        cabinArray.push(cabin);
-//         let classOfService = flightData[i].travelerPricings[a].fareDetailsBySegment[b].class;
-//         classArray.push(classOfService);
-//       }
-//     }
-//     testFlightDataFinal = [
-//       {"flight_ID":flightData[i].id},
-//       {"last_Ticketing_Date":flightData[i].lastTicketingDate },
-//       {"test_Function": [testDataFunction()]},
-//       {"number_of_Seats_avaialable": flightData[i].numberOfBookableSeats},
-//       {"duration": flightDurration()},
-//       {"departure": departureArrayVariable},
-//       {"arrival": arrivalArrayVariable},
-//       {"departure_terminal": departureTerminalArray},
-//       {"arrival_terminal": arrivalTerminalArray},
-//       {"departure_at": departureAtArray},
-//       {"arrival_at": arrivalAtArray},
-//       {"currency": currency1},
-//       {"grand_Total": grandTotal1},
-//       {"segment_id": segmentIdArray},
-//       {"cabin": cabinArray},
-//       {"class": classArray},
-//       {"carrier": carrierCodeArray},
-//       {"aircraft_code": aircraftCodeArray},
-     
-//     ];
-//     function testDataFunction(){
-//       return "Hello World"
-//     }
-//     flightListings.push(testFlightDataFinal);
-  
-//     console.log("Flight Id function: "+JSON.stringify(testFlightDataFinal, null, 2));
-//   }
-//   return flightListings;
-
-//   // console.log(flightData);
-  
-// }
-// app.get("/flights", (req, res) =>{
-//     let flightData;
-//     let text = "";
-//     amadeus.shopping.flightOffersSearch.get({
-//         originLocationCode: 'YYZ',
-//         destinationLocationCode: 'LOS',
-//         departureDate: '2024-09-09',
-//         // returnDate:'2023-12-12',
-//         travelClass: 'BUSINESS',
-//         adults: '1'
-//     }).then(async function(response){
-//         flightData = response.data;
-//         // await getFlights(flightData)
-//         res.send(await getFlights(flightData));
-       
-     
-//     }).catch(function(responseError){
-//       console.log(responseError.code);
-//     });
-//     // console.log(flightData);
+//   )
+//   ).catch((err) => res.send(err));
+// // res.send(JSON.stringify(myError));
+// console.log("My Error " + myError);
 // });
 
 
+// const AbortController = require("abort-controller"); // Required in Node.js <18
+
+// app.get("/flights", async (req, res, next) => {
+//   const controller = new AbortController();
+//   const timeout = setTimeout(() => controller.abort(), 20000); // 20s timeout
+
+//   try {
+//     const response = await amadeus.shopping.flightOffersSearch.get({
+//       originLocationCode: app.get("iataOrigin"),
+//       destinationLocationCode: app.get("iataDestination"),
+//       departureDate: app.get("destinationDate"),
+//       returnDate: app.get("returnDate"),
+//       travelClass: app.get("typeOfCabin"),
+//       adults: app.get("numberOfAdults"),
+//       currencyCode: "USD",
+//     }, { signal: controller.signal });
+
+//     clearTimeout(timeout); // Clears timeout on success
+
+//     const flightData = response.data;
+//     app.set("flightFlightData", flightData);
+//     console.log(flightData);
+//     res.redirect("/htmlFlights");
+
+//   } catch (error) {
+//     clearTimeout(timeout);
+
+//     if (error.name === "AbortError") {
+//       console.error("Request timed out.");
+//       res.redirect("/errorTimeout"); // ✅ Customize your timeout error route
+//     } else {
+//       console.error("API Error:", error);
+//       next(error); // Let your global error handler take over
+//     }
+//   }
+// });
+
+app.get("/flights", (req, res, next) =>{
+    let flightData;
+    let text = "";
+    amadeus.shopping.flightOffersSearch.get({
+        originLocationCode: app.get("iataOrigin"),
+        destinationLocationCode: app.get("iataDestination"),
+        departureDate: app.get("destinationDate"),
+        // returnDate: app.get("returnDate"),
+        travelClass: app.get("typeOfCabin"),
+        adults: app.get("numberOfAdults"),
+        currencyCode : "USD"
+        
+    }).then(async function(response){
+        flightData = response.data;
+       
+        app.set('flightFlightData', flightData)
+       
+        console.log(flightData);
+        // res.redirect("/pricingRoute");
+        res.redirect("/htmlFlights");
+        // res.redirect();
+        // console.log(flightData);
+        // await getFlights(flightData)
+        // res.send(await getFlights(flightData));
+        // res.send(flightData);
+       
+     
+    }).catch(function(responseError){
+      // next(responseError);
+      console.log(responseError.code);
+    });
+    // console.log(flightData);
+});
 
 
 
+app.get("/pricingRoute", (req, res) =>{
+  console.log("Test");
+ async function main() {
+  try {
+    // Confirm availability and price from MAD to ATH in summer 2024
+    const flightOffersResponse = app.get("priceValidated");
 
-// var amadeus = new Amadeus({
-//     hostname: 'production'
-//   });
+    const response = await amadeus.shopping.flightOffers.pricing.post(
+      JSON.stringify({
+        data: {
+          type: "flight-offers-pricing",
+          flightOffers: [flightOffersResponse],
+        },
+      },
+      { include: "credit-card-fees,detailed-fare-rules" }
+    ));
+    console.log(response);
+    res.send(response)
+  } catch (error) {
+    console.error(error);
+    console.log("The Error is right here!");
+  }
+}
 
+main()
+});
 
+app.get("/getHtmlFlights", (req, res) =>{
+
+  console.log("Test flight");
+   const flightTestData = app.get("flightFlightData");
+  res.send(flightTestData);
+});
+
+app.get("/htmlFlights", (req, res) =>{
+  res.sendFile(__dirname + "/public/htmlFlightListings.html");
+  console.log("Test flight");
+  
+});
 
 
 
@@ -345,6 +283,10 @@ app.get("/flightData", (req, res) =>{
 
 app.use("/", carsRoute);
 app.use("/", hotelsRoute);
+app.use("/", testF);
+app.use("/", aboutUsRoute);
+app.use("/", contactUsRoute);
+app.use("/", employmentRoute);
 
 
 app.listen(PORT, () =>{

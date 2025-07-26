@@ -1,0 +1,132 @@
+[
+    {
+        "type": "flight-offer",
+        "id": "2",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-07-31",
+        "lastTicketingDateTime": "2025-07-31",
+        "numberOfBookableSeats": 9,
+        "itineraries": [
+            {
+                "duration": "PT19H15M",
+                "segments": [
+                    {
+                        "departure": {
+                            "iataCode": "YYZ",
+                            "terminal": "1",
+                            "at": "2025-07-31T12:45:00"
+                        },
+                        "arrival": {
+                            "iataCode": "CAI",
+                            "terminal": "3",
+                            "at": "2025-08-01T06:10:00"
+                        },
+                        "carrierCode": "MS",
+                        "number": "996",
+                        "aircraft": {
+                            "code": "789"
+                        },
+                        "operating": {
+                            "carrierCode": "MS"
+                        },
+                        "duration": "PT10H25M",
+                        "id": "12",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    },
+                    {
+                        "departure": {
+                            "iataCode": "CAI",
+                            "terminal": "3",
+                            "at": "2025-08-01T09:30:00"
+                        },
+                        "arrival": {
+                            "iataCode": "LOS",
+                            "terminal": "2I",
+                            "at": "2025-08-01T13:00:00"
+                        },
+                        "carrierCode": "MS",
+                        "number": "875",
+                        "aircraft": {
+                            "code": "330"
+                        },
+                        "operating": {
+                            "carrierCode": "MS"
+                        },
+                        "duration": "PT5H30M",
+                        "id": "13",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    }
+                ]
+            }
+        ],
+        "price": {
+            "currency": "USD",
+            "total": "939.98",
+            "base": "599.00",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "939.98"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+            "MS"
+        ],
+        "travelerPricings": [
+            {
+                "travelerId": "1",
+                "fareOption": "STANDARD",
+                "travelerType": "ADULT",
+                "price": {
+                    "currency": "USD",
+                    "total": "939.98",
+                    "base": "599.00"
+                },
+                "fareDetailsBySegment": [
+                    {
+                        "segmentId": "12",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "KHRECAO",
+                        "class": "K",
+                        "includedCheckedBags": {
+                            "quantity": 2
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        }
+                    },
+                    {
+                        "segmentId": "13",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "KHRECAO",
+                        "class": "K",
+                        "includedCheckedBags": {
+                            "quantity": 2
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

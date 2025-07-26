@@ -1,226 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/bootstrap.css">
-    <link rel="stylesheet" href="./css/modal.css">
-    <title>Global Link Travel | Agency</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/index.css">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <title>Global Link Travel | Agency</title>
 </head>
-    <body>
-        
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Global Link Travel</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-        
-              <div class="collapse navbar-collapse" id="navbarsExample06">
-                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Flights</a>
-                  </li>
-                  
-                  <li class="nav-item">
-                    <a class="nav-link" href="/hotels">Hotels</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/cars">Cars</a>
-                  </li>
-                  
-                </ul>
-             
-              </div>
-            </div>
-          </nav>
-<button id="getTestButton">Get Button</button>
-<button id="postTestButton">POST Button</button>
 
-         <br>
-         
-            <form >
-                <div class="backgroundImage">
+<body>
 
-                
-                <div class="travel-panel">
-                    <h2>Flights</h2>
-                    <label>Origin:</label>
-                    <div class="origin-autocomplete" style="width:300px;">
-                      <input id="originMyInput" class="originInput" type="text" name="origin" placeholder="Origin">
-                    </div>
-                    
-                    <label>Destination:</label>
-                    <div class="destination-autocomplete" style="width:300px;">
-                      <input id="destinationMyInput" class="destinationInput" type="text" name="destination" placeholder="Destination">
-                    </div>
-                    <span>
-                    <label>Departure Date:</label>
-                    <br>
-                    <input id="departureDate" type="date"  placeholder="Search" aria-label="Search">
-                    </span>
-                    <span id="returnDate">
-                    
-                    <label>Return Date:</label>
-                    <br>
-                    <input  type="date" placeholder="Search" aria-label="Search">
-                    </span>
-                    <!-- <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                    </label>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
-                    <label for="cars">Choose Your Cabin:</label>
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Global Link Travel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
+        aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-                    <select name="classOfService" id="classOfService">
-                    <option value="economy">Economy</option>
-                    <option value="premium-Economy">Premium Economy</option>
-                    <option value="business">Business</option>
-                  
-                    </select>
-                    <label for="cars">Adult:</label>
+      <div class="collapse navbar-collapse" id="navbarsExample06">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Flights</a>
+          </li>
 
-                    <select name="adult" id="adult">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                  
-                    </select>
-                    <label for="cars">Children:</label>
+          <li class="nav-item">
+            <a class="nav-link" href="/hotels">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cars">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutUs">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactUs">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employment">We're Hiring!</a>
+          </li>
 
-                    <select name="children" id="children">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  
-                    </select>
-                    <br>
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onclick="checking()">
-                      <label class="form-check-label" for="flexSwitchCheckDefault">Round Trip</label>
-                    </div>
-                    <br>
-                    <button type="button" id="modal-Button" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-              
-            </form>
-            <br>
-            <div class="rightSideBanner"></div>
-         <center>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/85790_aircanadaa321xlrcairbus_94856.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">YYZ - ORD</h5>
-                      <p class="card-text">Travel from Toronto Pearson Airport. To Chicago O'Hare International Airport for only $400 USD.</p>
-                      <a href="#/" class="btn btn-primary ">$400.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/westjet.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">LHR - YYC</h5>
-                      <p class="card-text">Travel from Heathrow Airport (LONDON) to one of Canada's busiest airports Calgary Internation Airport for only $750 USD.</p>
-                      <a href="#/" class="btn btn-primary ">$750.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/spirit.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">LAX - EWR</h5>
-                      <p class="card-text">Travel from Los Angeles International Airport to Newark Liberty International Airport (NEW JERSEY) for only $250 USD.</p>
-                      <a href="#/" class="btn btn-primary">$250.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <br>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/lufthansa.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">YYZ - ARN</h5>
-                      <p class="card-text">Travel from Toronto Pearson Airport to Stockholm Arlanada Airport for only $1000 USD</p>
-                      <a href="#/" class="btn btn-primary">$1000.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/Shrimp-Prawn-Seafood-flatlay.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">YYZ - SIN</h5>
-                      <p class="card-text">Travel from Toronto's International Airport, to Singapore for a delicoius meal for only $1900 USD, using United Airlines.</p>
-                      <a href="#/" class="btn btn-primary">$1900.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/thailand.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">JFK - BKK</h5>
-                      <p class="card-text">Travel from New York City, to Thailand. There are a number of hidden beaches, where you can dive and explore under water.
-                        You can also enjoy a tour of temples nearby, and enjoy delicious foods. For only $1399.99 USD
-                      </p>
-                      <a href="#/" class="btn btn-primary">$1399.99 USD</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <br>
-            <div class="container">
-            
-              <div class="row">
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/montegoBay.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Ottawa - MONTEGO BAY</h5>
-                      <p class="card-text">Travel from Ottawa to Montego Bay, enjoy the tropical rain forests, water falls and beaches. Blue lagoon sit's on a deep existinct valcano, duns river falls 
-                        tourist are able to climb casccading water falls, Ys falls for only $550.00 USD.</p>
-                      <a href="#/" class="btn btn-primary">$550.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/Guangzhou_skyline.jpg" width="286" height="180" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Montreal - China</h5>
-                      <p class="card-text">Travel from Montreal, Quebec to Guangzhou, China for only $2100.00 USD.</p>
-                      <a href="#/" class="btn btn-primary">$2100.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm">
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="./images/pyramids-2371501_1280.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Toronto - Egypt</h5>
-                      <p class="card-text">Travel from Toronto to Egypt for only just $1000.00 USD.</p>
-                      <a href="#/" class="btn btn-primary">$1000.00 USD</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </center>
-          
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  <!-- <button id="getTestButton">Get Button</button>
+<button id="postTestButton">POST Button</button> -->
+
+  <br>
+
+  <form>
+    <div class="backgroundImage">
+
+
+      <div class="travel-panel">
+        <h2>Flights</h2>
+        <label>Origin:</label>
+        <div id="dropdown1">
+          <input type="text" id="searchInput1" placeholder="Origin" autocomplete="off">
+          <div id="dropdownList1"></div>
+        </div>
+
+        <label>Destination:</label>
+        <div id="dropdown2">
+          <input type="text" id="searchInput2" placeholder="Destination" autocomplete="off">
+          <div id="dropdownList2"></div>
+        </div>
+    
+        <span id="departureDate">
+          <label>Departure Date:</label>
+          <br>
+          <input type="text" id="calendar" placeholder="Select Departure Date" autocomplete="off" />
+   
+        </span>
+        <span id="returnDate">
+
+          <label>Return Date:</label>
+          <br>
+          <input type="text" id="calendar1" placeholder="Select Return Date" autocomplete="off" />
+       
+        </span>
  
+        <label for="cars">Choose Your Cabin:</label>
+
+        <select name="classOfService" id="classOfService">
+          <option value="ECONOMY">ECONOMY</option>
+          <option value="PREMIUM_ECONOMY">PREMIUM_ECONOMY</option>
+          <option value="BUSINESS">BUSINESS</option>
+          <option value="FIRST">FIRST CLASS</option>
+
+        </select>
+        <label for="cars">Adult:</label>
+
+        <select name="adult" id="adult">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+
+        <label for="children">Children:</label>
+        <select name="children" id="children" onChange="">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      
+         <label for="infant">Infant:</label>
+        <select name="infant" id="infant" onChange="">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <br>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+            onclick="checking()">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Round Trip</label>
+        </div>
+        <br>
+        <button type="button" id="modal-Button" class="btn btn-primary" onclick="submitFlight()" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>Submit</button>
+      </div>
+    </div>
+
+  </form>
+ 
+  <br>
+  <div class="rightSideBanner"></div>
+  <center>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/85790_aircanadaa321xlrcairbus_94856.jpg" width="286" height="180"
+              alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">YYZ - ORD</h5>
+              <p class="card-text">Travel from Toronto Pearson Airport. To Chicago O'Hare International Airport for only
+                $400 USD.</p>
+              <a href="#/" class="btn btn-primary ">$400.00 USD</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/westjet.jpg" width="286" height="180" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">LHR - YYC</h5>
+              <p class="card-text">Travel from Heathrow Airport (LONDON) to one of Canada's busiest airports Calgary
+                Internation Airport for only $750 USD.</p>
+              <a href="#/" class="btn btn-primary ">$750.00 USD</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/spirit.jpg" width="286" height="180" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">LAX - EWR</h5>
+              <p class="card-text">Travel from Los Angeles International Airport to Newark Liberty International Airport
+                (NEW JERSEY) for only $250 USD.</p>
+              <a href="#/" class="btn btn-primary">$250.00 USD</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/lufthansa.jpg" width="286" height="180" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">YYZ - ARN</h5>
+              <p class="card-text">Travel from Toronto Pearson Airport to Stockholm Arlanada Airport for only $1000 USD
+              </p>
+              <a href="#/" class="btn btn-primary">$1000.00 USD</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/Shrimp-Prawn-Seafood-flatlay.jpg" width="286" height="180"
+              alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">YYZ - SIN</h5>
+              <p class="card-text">Travel from Toronto's International Airport, to Singapore for a delicoius meal for
+                only $1900 USD, using United Airlines.</p>
+              <a href="#/" class="btn btn-primary">$1900.00 USD</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/thailand.jpg" width="286" height="180" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">JFK - BKK</h5>
+              <p class="card-text">Travel from New York City, to Thailand. There are a number of hidden beaches, where
+                you can dive and explore under water.
+                You can also enjoy a tour of temples nearby, and enjoy delicious foods. For only $1399.99 USD
+              </p>
+              <a href="#/" class="btn btn-primary">$1399.99 USD</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/montegoBay.jpg" width="286" height="180" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Ottawa - MONTEGO BAY</h5>
+              <p class="card-text">Travel from Ottawa to Montego Bay, enjoy the tropical rain forests, water falls and
+                beaches. Blue lagoon sit's on a deep existinct valcano, duns river falls
+                tourist are able to climb casccading water falls, Ys falls for only $550.00 USD.</p>
+              <a href="#/" class="btn btn-primary">$550.00 USD</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/Guangzhou_skyline.jpg" width="286" height="180"
+              alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Montreal - China</h5>
+              <p class="card-text">Travel from Montreal, Quebec to Guangzhou, China for only $2100.00 USD.</p>
+              <a href="#/" class="btn btn-primary">$2100.00 USD</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./images/pyramids-2371501_1280.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Toronto - Egypt</h5>
+              <p class="card-text">Travel from Toronto to Egypt for only just $1000.00 USD.</p>
+              <a href="#/" class="btn btn-primary">$1000.00 USD</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+
+  <!--  
             <div id ="simpleModal" class="button-modal">
               <div class="modal-content">
                 <div class="modal-header">
@@ -234,21 +269,65 @@
                   <button type="button" class="btn btn-danger closeButton">Cancel</button>
                 </center>
               </div>
-            </div>
-         
-            <div class="b-example-divider"></div>
-            <div class="container">
-                <footer class="py-3 my-4">
-                  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Flights</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Hotels</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Cars</a></li>
-                   
-                  </ul>
-                  <p class="text-center text-muted">© 2024 Global Link Travel, Inc</p>
-                </footer>
-              </div>
-    </body>
-    <script src="./js/bootstrap.js"></script>
-    <script src="./js/main.js"></script>
+            </div> -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Flight Lisiting</h1>
+
+        </div>
+        <div class="modal-body">
+          <center>
+          <div class="spinner-grow text-primary" role="status">
+          </div>
+          <br>
+          <br>
+          <img src="./images/airplane.svg">
+          <br>
+          <br>
+          <span>Checking for flight lisitings</span>
+        </center>
+        </div>
+
+        <br>
+      
+        <br>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Flights</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Hotels</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Cars</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
+      </ul>
+      <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+    </footer>
+  </div>
+</body>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/en.js"></script>
+
+<script src="
+https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
+" rel="stylesheet">
+
+<script src="./js/main.js"></script>
+
 </html>

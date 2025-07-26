@@ -4,9 +4,9 @@ const router = express.Router();
 
 // router.use(express.static(path.join( __dirname)));
 
-router.get("/cars", (req, res, next) =>{
-    res.sendFile( `D:\\globallinktravel\\public\\cars.html`);
-    // console.log( `D:\\globallinktravel\\public\\cars` );
+router.get("/testFlight", (req, res, next) =>{
+    res.sendFile( `D:\\globallinktravel\\public\\testFlight.html`);
+    console.log( `Test Flight Route` );
 });
 
 module.exports = router;

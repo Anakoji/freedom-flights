@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/itinerary_mockup.css">
+</head>
+<body>
+    <div class="ticket">
+  <div class="journey">
+    <h2>Toronto → Cairo</h2>
+    <p><strong>Flight:</strong> ET553 | <strong>Date:</strong> July 31, 2025 – 12:45 PM</p>
+    <p><strong>Airport:</strong> YYZ – Toronto Pearson</p>
+  </div>
+
+  <div class="journey">
+    <h2>Cairo → Lagos</h2>
+    <p><strong>Flight:</strong> ET900 | <strong>Date:</strong> August 1, 2025 – 7:10 AM</p>
+    <p><strong>Airport:</strong> CAI – Cairo International</p>
+  </div>
+
+  <div class="info-box">
+    <p><strong>Ticket ID:</strong> #TCKT28945</p>
+    <p><strong>Seats left:</strong> <span class="seats">9</span></p>
+    <div class="progress-bar"><div style="width:30%"></div></div>
+  </div>
+
+  <div class="cost-section">
+    <p><strong>Total Cost:</strong> <span class="price">$488.00</span></p>
+    <button class="confirm-btn">Confirm Purchase</button>
+  </div>
+</div>
+
+
+</body>
+
+<script>
+  const seatsLeft = 9;
+  const totalSeats = 30;
+  const progress = (seatsLeft / totalSeats) * 100;
+  
+  document.querySelector(".progress-bar > div").style.width = progress + "%";
+
+  document.querySelector(".confirm-btn").addEventListener("click", () => {
+    alert("Your ticket has been confirmed. Safe travels!");
+  });
+</script>
+
+
+</html>

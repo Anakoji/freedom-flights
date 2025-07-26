@@ -3,9 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotels</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <title>Glocities Travel | Agency</title>
 </head>
-<body>
-    
-</body>
+    <body>
+        
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">Glocities Travel</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+        
+              <div class="collapse navbar-collapse" id="navbarsExample06">
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Flights</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="/hotels">Hotels</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/cars">Cars</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/aboutUs">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/contactUs">Contact Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/employment">We're Hiring!</a>
+                  </li>
+                  
+                </ul>
+             
+              </div>
+            </div>
+          </nav>
+<button id="getTestButton">Get Button</button>
+<button id="postTestButton">POST Button</button>
+
+         <br>
+         
+            <form >
+                <div class="backgroundImage">
+
+                
+                <div class="travel-panel">
+                    <h2>Flights</h2>
+                    <label>Origin:</label>
+                    <div class="origin-autocomplete" style="width:300px;">
+                      <input id="originMyInput" class="originInput" type="text" name="origin" placeholder="Origin">
+                    </div>
+                    
+                    <label>Destination:</label>
+                    <div class="destination-autocomplete" style="width:300px;">
+                      <input id="destinationMyInput" class="destinationInput" type="text" name="destination" placeholder="Destination">
+                    </div>
+                    <span>
+                    <label>Departure Date:</label>
+                    <br>
+                    <input id="departureDate" type="date"  placeholder="Search" aria-label="Search">
+                    </span>
+                    <span id="returnDate">
+                    
+                    <label>Return Date:</label>
+                    <br>
+                    <input  type="date" placeholder="Search" aria-label="Search">
+                    </span>
+                    <!-- <label class="form-check-label" for="flexCheckDefault">
+                        Default checkbox
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
+                    <label for="cars">Choose Your Cabin:</label>
+
+                    <select name="classOfService" id="classOfService">
+                    <option value="economy">Economy</option>
+                    <option value="premium-Economy">Premium Economy</option>
+                    <option value="business">Business</option>
+                  
+                    </select>
+                    <label for="cars">Adult:</label>
+
+                    <select name="adult" id="adult">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                  
+                    </select>
+                    <label for="cars">Children:</label>
+
+                    <select name="children" id="children">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  
+                    </select>
+                    <br>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onclick="checking()">
+                      <label class="form-check-label" for="flexSwitchCheckDefault">Round Trip</label>
+                    </div>
+                    <br>
+                    <button type="button" id="modal-Button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+              
+            </form>
+            <br>
+            <div class="rightSideBanner"></div>
+         <center>
+           
+          </center>
+          
+ 
+            <div id ="simpleModal" class="button-modal">
+              <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <center>
+                  <div class="spinner-grow text-primary" role="status">
+                  </div>
+                  <br>
+                  <img src="./images/airplane.svg">
+                  <p>Searching for flights....</p>
+                  <button type="button" class="btn btn-danger closeButton">Cancel</button>
+                </center>
+              </div>
+            </div>
+         
+            <div class="b-example-divider"></div>
+            <div class="container">
+                <footer class="py-3 my-4">
+                  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Flights</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Hotels</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Cars</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About Us</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact Us</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're Hiring</a></li>
+                   
+                  </ul>
+                  <p class="text-center text-muted">© 2025 Glocities Travel, Inc</p>
+                </footer>
+              </div>
+    </body>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/main.js"></script>
 </html>

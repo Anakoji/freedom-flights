@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clickable Calendar</title>
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+  <h1>Pick a Date Range</h1>
+  <input type="text" id="calendar" placeholder="Select Date Range" />
+
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/en.js"></script>
+  <script>
+    // JavaScript for Calendar
+    flatpickr("#calendar", {
+      mode: "range", // Enables date range selection
+      minDate: "today", // Disables past dates
+      dateFormat: "Y-m-d", // Format for selected dates
+      onChange: function(selectedDates, dateStr, instance) {
+        console.log("Selected Dates:", selectedDates[0]);
+        getDate()
+      }
+    });
+    function getDate(){
+        let todaysDate = document.getElementById("calendar");
+        todaysDate.addEventListener('input', () =>{
+            console.log("Todays Date Input: " + todaysDate.value);
+        })
+    }
+  </script>
+</body>
+</html>

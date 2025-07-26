@@ -39,7 +39,7 @@ async function origin(){
     }
   
   
-    console.log("Flight Destination " + flightInp);
+    console.log("Flight Origin " + flightInp);
   
   }
   
@@ -170,49 +170,73 @@ function pickItem({ target }) {
     d.value = target.textContent;
     destinations.innerHTML = ``;
     destinations.style.display='none';
+    console.log("D value: " + d.value);
+    getOrigin(d.value)
   }
 }
 
-}
+async function getOrigin(gettingOrigin){
+  const cities = await fetch("./json/airports.json");
+  const loadedCities = await cities.json();
+  let countries = [];    
 
-
-function autoComplete2(){
-    let inputField = document.getElementById('input');
-    let ulField = document.getElementById('suggestions');
-    inputField.addEventListener('input', changeAutoComplete);
-    ulField.addEventListener('click', selectItem);
-  
-    function changeAutoComplete({ target }) {
-      let data = target.value;
-      console.log(data);
-      ulField.innerHTML = ``;
-      if (data.length) {
-        let autoCompleteValues = autoComplete(data, data.length);
-        autoCompleteValues.forEach(value => { addItem(value); });
-      }
-    }
-  
-    function autoComplete(inputValue, dataLength) {
-      let destination =["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina"];
+  for(let i = 0; i < loadedCities.length; i++){
       
-      return destination.filter(
-        (value) => value.substr(0, dataLength).toUpperCase() == inputValue.toUpperCase());
-    }
-  
-    function addItem(value) {
-      ulField.innerHTML = ulField.innerHTML + `<li>${value}</li>`;
-    }
-  
-    function selectItem({ target }) {
-      if (target.tagName === 'LI') {
-        inputField.value = target.textContent;
-        ulField.innerHTML = ``;
+      let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+      
+      if(loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata){
+        countries.push(citieFinal);
+
       }
+
+  }
+  countries.filter(country => {
+    if(country == gettingOrigin){
+      console.log("Got country!");
     }
+  })
 }
-autoComplete2();
+
+}
 origin();
 destination();
+
+// function autoComplete2(){
+//     let inputField = document.getElementById('input');
+//     let ulField = document.getElementById('suggestions');
+//     inputField.addEventListener('input', changeAutoComplete);
+//     ulField.addEventListener('click', selectItem);
+  
+//     function changeAutoComplete({ target }) {
+//       let data = target.value;
+//       console.log(data);
+//       ulField.innerHTML = ``;
+//       if (data.length) {
+//         let autoCompleteValues = autoComplete(data, data.length);
+//         autoCompleteValues.forEach(value => { addItem(value); });
+//       }
+//     }
+  
+//     function autoComplete(inputValue, dataLength) {
+//       let destination =["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina"];
+      
+//       return destination.filter(
+//         (value) => value.substr(0, dataLength).toUpperCase() == inputValue.toUpperCase());
+//     }
+  
+//     function addItem(value) {
+//       ulField.innerHTML = ulField.innerHTML + `<li>${value}</li>`;
+//     }
+  
+//     function selectItem({ target }) {
+//       if (target.tagName === 'LI') {
+//         inputField.value = target.textContent;
+//         ulField.innerHTML = ``;
+//       }
+//     }
+// }
+// autoComplete2();
+
 
     // let dest = e.target.value;
     // let valueTarget = [];

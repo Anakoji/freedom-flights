@@ -4,8 +4,8 @@ const router = express.Router();
 
 // router.use(express.static(path.join( __dirname)));
 
-router.get("/cars", (req, res, next) =>{
-    res.sendFile( `D:\\globallinktravel\\public\\cars.html`);
+router.get("/aboutUs", (req, res, next) =>{
+    res.sendFile( `D:\\globallinktravel\\public\\about-us.html`);
     // console.log( `D:\\globallinktravel\\public\\cars` );
 });
 

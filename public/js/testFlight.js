@@ -3,10 +3,38 @@ const postBtn = document.getElementById("post");
 const input = document.getElementById("input");
 const answer = document.getElementById("answer");
 const baseUrl = "http://localhost:5000/flightData";
+
 console.log("Opened");
-getBtn.addEventListener("click", getInfo)
+// getBtn.addEventListener("click", getInfo);
+// async function checkingData(){
+   
+//      const res = await fetch(baseUrl,{
+//             method: "GET"
+//         })
+//         const html = await res.json();
+//     return new Promise((resolve) => {
+       
+//     resolve(html)
+// }).then(
+//     console.log("Promise Is Resolved")
+// ).catch(function (error){
+//     console.log("There was an error, please try again");
+// }).then("Test");
+
+// }
+
+// checkingData();
+
+// async function getJson(){
+//      const res = await fetch(baseUrl,{
+//         method: "GET"
+//     });
+//     const html = await res.json();
+//     return html
+// }
+getInfo();
 async function getInfo(e){
-    e.preventDefault();
+    // e.preventDefault();
     const res = await fetch(baseUrl,{
         method: "GET"
     });
@@ -14,7 +42,13 @@ async function getInfo(e){
     // const data = await res.json();
     // console.log(await res.json());
     // answer.innerText = JSON.stringify(data, null , 4)
-
+// return new Promise((resolve) => {
+//     resolve(html)
+// }).then(
+//     console.log("Promise Is Resolved")
+// ).catch(function (error){
+//     console.log("There was an error, please try again");
+// });
 
 
     let flightCarrierCode;
@@ -28,7 +62,7 @@ async function getInfo(e){
     
     flightDataDiv1.id = "flightDataDiv"
     document.getElementById("data").appendChild(flightDataDiv1)
-    
+    const loadMoreButton = document.createElement('button');
     
     
     

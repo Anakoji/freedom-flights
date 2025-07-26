@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employment – Global Link Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Global Link Travel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
+                aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample06">
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                    <li class="nav-item"><a class="nav-link active" href="/">Flights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/hotels">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cars">Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/aboutUs">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contactUs">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/employment">We're Hiring!</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="mb-4 text-primary">Join Our Team</h1>
+        <p>Explore exciting career opportunities at Global Link Travel. Click on a role to learn more.</p>
+
+        <div class="list-group">
+            <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#frontendModal">
+                🖥️ Front-End Developer
+            </button>
+            <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#javascriptModal">
+                💻 JavaScript Developer
+            </button>
+            <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#designerModal">
+                🎨 Graphics Designer
+            </button>
+            <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#sysadminModal">
+                🛠️ System Administrator
+            </button>
+            <button class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#lawyerModal">⚖️ Lawyer</button>
+            <button class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#cookModal">🍳
+                Cook</button>
+            <button class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#cleanerModal">🧼 Cleaner</button>
+
+
+
+        </div>
+    </div>
+
+    <!-- Front-End Developer Modal -->
+    <div class="modal fade" id="frontendModal" tabindex="-1" aria-labelledby="frontendLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="frontendLabel">Front-End Developer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>We’re looking for a creative Front-End Developer with strong skills in:</p>
+                    <ul>
+                        <li>HTML5, CSS3, and responsive design</li>
+                        <li>Basic JavaScript for interactivity</li>
+                        <li>Attention to user experience and accessibility</li>
+                    </ul>
+                    <p>Bonus: Experience with Bootstrap or Figma is a plus!</p>
+                    <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+                        <label for="resume" class="form-label mt-3">Upload Your Resume</label>
+                        <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx"
+                            required />
+                        <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Developer Modal -->
+    <div class="modal fade" id="javascriptModal" tabindex="-1" aria-labelledby="javascriptLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="javascriptLabel">JavaScript Developer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>We need a seasoned JavaScript Developer with:</p>
+                    <ul>
+                        <li>10+ years of experience in Node.js and Vanilla JavaScript</li>
+                        <li>Strong understanding of asynchronous programming and APIs</li>
+                        <li>Ability to architect scalable web applications</li>
+                    </ul>
+                    <p>Bonus: Familiarity with Express.js or MongoDB is welcome!</p>
+                    <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+                        <label for="resume" class="form-label mt-3">Upload Your Resume</label>
+                        <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx"
+                            required />
+                        <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphics Designer Modal -->
+    <div class="modal fade" id="designerModal" tabindex="-1" aria-labelledby="designerLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="designerLabel">Graphics Designer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>We’re seeking a talented Graphics Designer with:</p>
+                    <ul>
+                        <li>5+ years of experience in digital and print design</li>
+                        <li>Proficiency in Adobe Creative Suite or similar tools</li>
+                        <li>Strong portfolio showcasing branding and layout skills</li>
+                    </ul>
+                    <p>Bonus: Experience with web design or animation is a plus!</p>
+                    <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+                        <label for="resume" class="form-label mt-3">Upload Your Resume</label>
+                        <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx"
+                            required />
+                        <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- System Administrator Modal -->
+    <div class="modal fade" id="sysadminModal" tabindex="-1" aria-labelledby="sysadminLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sysadminLabel">System Administrator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>We’re seeking a reliable System Administrator with:</p>
+                    <ul>
+                        <li>5+ years of experience managing IT infrastructure</li>
+                        <li>Strong knowledge of Windows and Linux server environments</li>
+                        <li>Experience with network security, backups, and cloud services</li>
+                        <li>Ability to troubleshoot hardware/software issues efficiently</li>
+                    </ul>
+                    <p>Bonus: Familiarity with virtualization tools and travel industry platforms is a plus!</p>
+
+                    <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+                        <label for="resume" class="form-label mt-3">Upload Your Resume</label>
+                        <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx"
+                            required />
+                        <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!-- Lawyer Modal -->
+<div class="modal fade" id="lawyerModal" tabindex="-1" aria-labelledby="lawyerLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lawyerLabel">Lawyer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>We’re seeking a seasoned Lawyer with deep expertise in legal strategy, client advocacy, and case management. The ideal candidate has over 5 years of experience in litigation, contract law, or corporate legal affairs.</p>
+        <ul>
+          <li>Represent clients in court and legal proceedings</li>
+          <li>Draft and review contracts, legal briefs, and other documents</li>
+          <li>Provide legal advice on business transactions and regulatory compliance</li>
+          <li>Conduct legal research and interpret laws and rulings</li>
+          <li>Negotiate settlements and manage dispute resolution</li>
+        </ul>
+        <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+          <label for="resume-lawyer" class="form-label mt-3">Upload Your Resume</label>
+          <input type="file" class="form-control" id="resume-lawyer" name="resume" accept=".pdf,.doc,.docx" required />
+          <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cook Modal -->
+<div class="modal fade" id="cookModal" tabindex="-1" aria-labelledby="cookLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cookLabel">Cook</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>We’re looking for a skilled Cook with 5+ years of experience in professional kitchens. You’ll be responsible for preparing high-quality meals, maintaining kitchen hygiene, and contributing to menu development.</p>
+        <ul>
+          <li>Prepare and cook meals according to recipes and standards</li>
+          <li>Ensure food safety and sanitation protocols are followed</li>
+          <li>Monitor inventory and assist with ordering supplies</li>
+          <li>Maintain cleanliness of kitchen equipment and workstations</li>
+        </ul>
+        <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+          <label for="resume-cook" class="form-label mt-3">Upload Your Resume</label>
+          <input type="file" class="form-control" id="resume-cook" name="resume" accept=".pdf,.doc,.docx" required />
+          <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cleaner Modal -->
+<div class="modal fade" id="cleanerModal" tabindex="-1" aria-labelledby="cleanerLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cleanerLabel">Cleaner</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>We’re hiring a dependable Cleaner with 5+ years of experience in maintaining commercial or residential spaces. You’ll ensure our facilities are spotless, safe, and welcoming.</p>
+        <ul>
+          <li>Perform routine cleaning tasks (sweeping, mopping, dusting, vacuuming)</li>
+          <li>Sanitize restrooms, kitchens, and common areas</li>
+          <li>Handle waste disposal and restocking of supplies</li>
+          <li>Report maintenance issues or safety concerns</li>
+        </ul>
+        <form action="/upload-resume" method="POST" enctype="multipart/form-data">
+          <label for="resume-cleaner" class="form-label mt-3">Upload Your Resume</label>
+          <input type="file" class="form-control" id="resume-cleaner" name="resume" accept=".pdf,.doc,.docx" required />
+          <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="b-example-divider"></div>
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Flights</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Hotels</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Cars</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About us</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
+            </ul>
+            <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

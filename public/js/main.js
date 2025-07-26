@@ -1,13 +1,5 @@
-const modal = document.getElementById('simpleModal');
-
-const modalButton = document.getElementById('modal-Button');
-
-const closeButton = document.getElementsByClassName('closeButton')[0];
-
-modalButton.addEventListener('click', openModal);
 
 
-closeButton.addEventListener('click', closeModal);
 
 // window.addEventListener('click', clickOutside);
 
@@ -17,475 +9,554 @@ closeButton.addEventListener('click', closeModal);
 //         modal.style.display = 'none';
 //     }
 // }
+flatpickr("#calendar", {
+  // Enables date range selection
+  minDate: "today", // Disables past dates
+  dateFormat: "Y-m-d", // Format for selected dates
+  onChange: function (selectedDates, dateStr, instance) {
 
-function closeModal(){
-    modal.style.display = 'none';
-}
-
-function openModal(){
-    modal.style.display = 'block';
-}
-
-  function validateOriginInput(e){
-    
-    // document.getElementById('flightOrigin').value = "YYZ";
-    const flightOrigin = e.target.value;
-    console.log(flightOrigin);
-    document.getElementById("modal-Button").disabled = true;
-    if(flightOrigin === '' ){
-      document.getElementById("modal-Button").disabled = true;
-      
-    }else{
-      document.getElementById("modal-Button").disabled = false;
-    }
+    getDepartureDate()
   }
-  
-  // function originLoad(){
-  //   document.getElementById("modal-Button").disabled = true;
-  // }
-  
-  
-async function originautocomplete() {
-  let inp = document.getElementById("originMyInput");
-  const cities = await fetch("./json/airports.json");
-  const loadedCities = await cities.json();
-  let countries = [];    
-  let arr;
-  for(let i = 0; i < loadedCities.length; i++){
-      
-      let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
-      
-      countries.push(citieFinal);
-  }
-  arr = countries;
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", async function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
-   
-      if (!val) { return false;}
-      currentFocus = -1;
-      /*create a DIV element that will contain the items (values):*/
-   
-      a = document.createElement("DIV");
-      a.setAttribute("id", this.id + "origin-autocomplete-list");
-      a.setAttribute("class", "origin-autocomplete-items");
-
-      /*append the DIV element as a child of the autocomplete container:*/
-     
-      this.parentNode.appendChild(a);
-      /*for each item in the array...*/
-      for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
-          b = document.createElement("DIV");
-          /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-          /*execute a function when someone clicks on the item value (DIV element):*/
-          b.addEventListener("click", async function(e) {
-            /*insert the value for the autocomplete text field:*/
-            // submitValidation()
-            inp.value = this.getElementsByTagName("input")[0].value;
-            let iataOriginCode;
-            iataOriginCode = inp.value.slice(-3);
-            const baseUrl = "http://localhost:5000/postIataOriginRoute"
-            const destPost = await fetch(baseUrl,{
-              method:"POST",
-              headers: {
-                "Content-Type": 'application/json'
-              },
-              body:JSON.stringify({
-                iataOrigin:iataOriginCode
-              })
-            });
-            
-            console.log("origin:" + inp.value.slice(-3));
-              /*close the list of autocompleted values,
-              (or any other open lists of autocompleted values:*/
-              closeAllLists();
-          });
-          a.appendChild(b);
-        }
-      }
-  });
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "origin-autocomplete-list");
-      if (x) x = x.getElementsByTagName("div");
-      if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
-        currentFocus++;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
-        currentFocus--;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-        e.preventDefault();
-        if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
-          if (x) x[currentFocus].click();
-        }
-      }
-  });
-  function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("origin-autocomplete-active");
-  }
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("origin-autocomplete-active");
-    }
-  }
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    var x = document.getElementsByClassName("origin-autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-   
-      x[i].parentNode.removeChild(x[i]);
-    }
-  }
-}
-/*execute a function when someone clicks in the document:*/
-document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-});
-}
-
-
-async function destinationautocomplete(iataDestinationCode) {
-  let inp = document.getElementById("destinationMyInput");
-  const cities = await fetch("./json/airports.json");
-  const loadedCities = await cities.json();
-  let countries = [];    
-  let arr;
-  for(let i = 0; i < loadedCities.length; i++){
-      
-      let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
-      
-      countries.push(citieFinal);
-  }
-  arr = countries;
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", async function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
-   
-      if (!val) { return false;}
-      currentFocus = -1;
-      /*create a DIV element that will contain the items (values):*/
-   
-      a = document.createElement("DIV");
-      a.setAttribute("id", this.id + "destination-autocomplete-list");
-      a.setAttribute("class", "destination-autocomplete-items");
-
-      /*append the DIV element as a child of the autocomplete container:*/
-     
-      this.parentNode.appendChild(a);
-      /*for each item in the array...*/
-      for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
-          b = document.createElement("DIV");
-          /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-          /*execute a function when someone clicks on the item value (DIV element):*/
-          b.addEventListener("click", async function(e) {
-            /*insert the value for the autocomplete text field:*/
-            inp.value = this.getElementsByTagName("input")[0].value;
-            let iataDestinationCode;
-     
-            // iataDestinationCode = inp.value;
-            iataDestinationCode = inp.value.slice(-3);
-            
-            const baseUrl = "http://localhost:5000/postIataDestRoute"
-            const destPost = await fetch(baseUrl,{
-              method:"POST",
-              headers: {
-                "Content-Type": 'application/json'
-              },
-              body:JSON.stringify({
-                iataDestination:iataDestinationCode
-                
-              })
-            });
-            console.log("destination:" + inp.value.slice(-3));
-            console.log("baseurl: " +baseUrl );
-              /*close the list of autocompleted values,
-              (or any other open lists of autocompleted values:*/
-              closeAllLists();
-          });
-          
-          a.appendChild(b);
-        }
-      }
-  });
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "destination-autocomplete-list");
-      if (x) x = x.getElementsByTagName("div");
-      if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
-        currentFocus++;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
-        currentFocus--;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-        e.preventDefault();
-        if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
-          if (x) x[currentFocus].click();
-        }
-      }
-  });
-  function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("destination-autocomplete-active");
-  }
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("destination-autocomplete-active");
-    }
-  }
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    var x = document.getElementsByClassName("destination-autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-   
-      x[i].parentNode.removeChild(x[i]);
-    }
-  }
-}
-/*execute a function when someone clicks in the document:*/
-document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
 });
 
-return await iataDestinationCode;
-}
+async function getDepartureDate() {
+  let todaysDate = document.getElementById("calendar");
+  todaysDate.addEventListener('input', () => {
+    console.log("Todays Date Input: " + todaysDate.value);
+  })
 
-async function getIataFlightData(){
-  const testButton =  document.getElementById("getTestButton");
-  const baseUrl = "http://localhost:5000/getTestRoute"
-  testButton.addEventListener('click', async function getIataData(e){
-    e.preventDefault();
-    const res = await fetch(baseUrl,{
-      method:"GET"
-    });
+  if (todaysDate.value.length == 10) {
+    const baseUrl = "http://localhost:5000/postDestDateRoute"
 
-    console.log("Getting Iata data");
-  });
 
-}
-async function postIataFlightData(){
-  const testButton =  document.getElementById("postTestButton");
-  const baseUrl = "http://localhost:5000/postTestRoute"
-  testButton.addEventListener('click', async function getIataData(e){
-    e.preventDefault();
-    const res = await fetch(baseUrl,{
-      method:"POST",
+    const postDate = await fetch(baseUrl, {
+      method: "POST",
       headers: {
         "Content-Type": 'application/json'
       },
-      body:JSON.stringify({
-        test:"Front End Data"
+      body: JSON.stringify({
+        destDate: todaysDate.value
       })
     });
-    console.log("redirecting...");
-// window.location.href = "http://localhost:5000/testFlights"
-  });
+  }
 
 }
+flatpickr("#calendar1", {
+  // Enables date range selection
+  minDate: new Date().setDate(new Date().getDate() + 1), // Disables past dates
+  dateFormat: "Y-m-d", // Format for selected dates
+  onChange: function (selectedDates, dateStr, instance) {
 
-async function setMinDate(){
-
-  let getDateId = document.getElementById("departureDate");
-  let date = new Date();
-  let month = date.getMonth();
-  let day = date.getDate();
-  let year = date.getFullYear();
-
-  month = month + 1;
-  console.log("Year: " + year);
-  if(day < 10){
-    day = "0" + day.toString();
+    getReturnDate()
   }
-  if(month < 10){
-    month = "0" + month.toString();
-    console.log("get month = " + month);
-    
+
+});
+async function getReturnDate() {
+  let todaysDate = document.getElementById("calendar1");
+  todaysDate.addEventListener('input', () => {
+    console.log("Return Date Input: " + todaysDate.value);
+  })
+
+  if (todaysDate.value.length == 10) {
+    const baseUrl = "http://localhost:5000/postReturnDateRoute"
+
+
+    const postDate = await fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        returnDate: todaysDate.value
+      })
+    });
   }
-  // console.log(year.toString() + "-" + month.toString() + "-" + day.toString());
-  // getDateId.min = "2024-05-20";
-  getDateId.min = year.toString() + "-" + month.toString() + "-" + day.toString();
-
-
-
-  console.log("date value: " + getDateId.value);
-
-  console.log(date);
 }
+async function getIataCitieOrigin() {
 
-async function getDepartureDate(){
-  let getDepartureDateId = document.getElementById("departureDate");
+  let jsonData;
+  const cities = await fetch("./json/airports.json");
+  const loadedCities = await cities.json();
+  let countries = [];
 
-  getDepartureDateId.onchange = async function postDepartureDate(){
-    if(getDepartureDateId.value.length == 10){
-      const baseUrl = "http://localhost:5000/postDestDateRoute"
-   
-  
-        const postDate = await fetch(baseUrl,{
-          method:"POST",
-          headers: {
-            "Content-Type": 'application/json'
-          },
-          body:JSON.stringify({
-            destDate: getDepartureDateId.value
-          })
-      });
+
+  console.log("Origin Promise");
+  for (let i = 0; i < loadedCities.length; i++) {
+
+    let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+
+    if (loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata) {
+      countries.push(citieFinal);
+      jsonData = citieFinal;
 
     }
   }
 
+  const searchInput = document.getElementById('searchInput1');
+  const dropdownList = document.getElementById('dropdownList1');
+  let lastFilteredData = []
 
-}
+  // Function to render dropdown items
+  function renderDropdownItems(data) {
+    dropdownList.innerHTML = ''; // Clear previous items
+    lastFilteredData = data;
+    data.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'dropdown-item1';
+      div.textContent = item;
+      div.addEventListener('click', async () => {
+        searchInput.value = item; // Set selected value
+        dropdownList.style.display = 'none'; // Hide dropdown
+        let iataOriginCode = searchInput.value.slice(-3);
+        console.log(iataOriginCode);
+        const baseUrl = "http://localhost:5000/postIataOriginRoute"
+        const destPost = await fetch(baseUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": 'application/json'
+          },
+          body: JSON.stringify({
+            iataOrigin: iataOriginCode
+          })
+        });
 
-
-async function submitValidation(){
-  const cities = await fetch("./json/airports.json");
-  const loadedCities = await cities.json();
-  let countries = [];    
-  let getDestInput = document.getElementById("destinationMyInput");
-
-  for(let i = 0; i < loadedCities.length; i++){
-      
-      let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
-      
-      countries.push(citieFinal);
+        console.log("origin:" + iataOriginCode.slice(-3));
+      });
+      dropdownList.appendChild(div);
+    });
   }
 
- 
-  getDestInput.addEventListener("change", async function (e){
+  // Event listener for live search
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const filteredData = countries.filter(item =>
+      item.toLowerCase().includes(query)
+    );
+    renderDropdownItems(filteredData);
+    if (filteredData.length > 0) {
+      // renderDropdownItems(filteredData);
+      dropdownList.style.display = 'block'; // Show dropdown
+    } else {
+      dropdownList.style.display = 'none'; // Hide dropdown if no match
+    }
+  });
 
-  let getInput = e.target.value;
-  console.log("Your input is: " + getInput);
+  // Validate input on blur (when leaving the field)
+  searchInput.addEventListener('blur', () => {
+    // Only allow selection from filtered dropdown
+    if (!lastFilteredData.includes(searchInput.value)) {
+      searchInput.value = '';
+    }
+  });
+  // Hide dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('dropdown1').contains(e.target)) {
+      dropdownList.style.display = 'none';
+    }
+  });
+}
+getIataCitieOrigin();
+async function getIataCitieDest() {
 
-  // for(let n = 0; n<countries.length; n++){
-  // if(countries[n] != getInput){
-  //   console.log("Disabled");
-  // }
-  // }
-  const baseUrl = "http://localhost:5000/destValidation"
-   
-  
-  const postDate = await fetch(baseUrl,{
-    method:"POST",
-    headers: {
-      "Content-Type": 'application/json'
-    },
-    body:JSON.stringify({
-      destValid: getInput
-    })
-});
-  // countries.forEach(country =>{
-  //   if(country !=  getInput){
-  //     console.log("False: ");
-  //   }
-  // })
- console.log("Testing Async!");
-});
+  let jsonData;
+  const cities = await fetch("./json/airports.json");
+  const loadedCities = await cities.json();
+  let countries = [];
 
 
+  // console.log("Destination Promise");
+  for (let i = 0; i < loadedCities.length; i++) {
+    let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+
+    if (loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata) {
+      countries.push(citieFinal);
+      jsonData = citieFinal;
+
+    }
+
+  }
+
+  const searchInput = document.getElementById('searchInput2');
+  const dropdownList = document.getElementById('dropdownList2');
+  let lastFilteredData = [];
+  // Function to render dropdown items
+  function renderDropdownItems(data) {
+
+    dropdownList.innerHTML = ''; // Clear previous items
+    lastFilteredData = data;
+    data.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'dropdown-item2';
+      div.textContent = item;
+      div.addEventListener('click', async () => {
+        searchInput.value = item; // Set selected value
+        dropdownList.style.display = 'none'; // Hide dropdown
+        console.log("Destination Function");
+        let iataDestinationCode = searchInput.value;
+        // console.log(iataDestinationCode);
+        // iataDestinationCode = inp.value;
+        iataDestinationCode = iataDestinationCode.slice(-3);
+
+        const baseUrl = "http://localhost:5000/postIataDestRoute"
+        const destPost = await fetch(baseUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": 'application/json'
+          },
+          body: JSON.stringify({
+            iataDestination: iataDestinationCode
+
+          })
+        });
+        console.log("destination:" + iataDestinationCode.slice(-3));
+      });
+      dropdownList.appendChild(div);
+    });
+  }
+
+  // Event listener for live search
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const filteredData = countries.filter(item =>
+      item.toLowerCase().includes(query)
+    );
+    renderDropdownItems(filteredData);
+    if (filteredData.length > 0) {
+      // renderDropdownItems(filteredData);
+      dropdownList.style.display = 'block'; // Show dropdown
+    } else {
+      dropdownList.style.display = 'none'; // Hide dropdown if no match
+    }
+  });
+
+  // Validate input on blur (when leaving the field)
+  searchInput.addEventListener('blur', () => {
+    // Only allow selection from filtered dropdown
+    if (!lastFilteredData.includes(searchInput.value)) {
+      searchInput.value = '';
+    }
+  });
+
+  // Hide dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('dropdown2').contains(e.target)) {
+      dropdownList.style.display = 'none';
+    }
+  });
+
+}
+getIataCitieDest();
+
+
+
+// function validateOriginInput() {
+
+function disableButton() {
+  const buttonToDisable = document.getElementById("modal-Button");
+  const search1Input = document.getElementById("searchInput1")
+  search1Input.addEventListener("input", () => {
+
+
+
+    if (search1Input.value.trim() === '') {
+      buttonToDisable.disabled = true;
+    }
+
+
+
+  });
 }
 
 
-function checking(){
-  if(document.getElementById('flexSwitchCheckDefault').checked){
+//  const search1Input = document.getElementById("searchInput1");
+//  const search2Input = document.getElementById("searchInput2");
+//  const buttonToDisable = document.getElementById("modal-Button");
+
+// search1Input.addEventListener('input', () => {
+//   buttonToDisable.disabled = search1Input.value.trim() === ''; // Disable if input is blank
+// });
+// search2Input.addEventListener('input', () => {
+//   buttonToDisable.disabled = search2Input.value.trim() === ''; // Disable if input is blank
+// });
+
+
+const search1Input = document.getElementById("searchInput1");
+const search2Input = document.getElementById("searchInput2");
+const searchCalendar1 = document.getElementById("calendar");
+const searchCalendar2 = document.getElementById("calendar1");
+const buttonToDisable = document.getElementById("modal-Button");
+const roundTripSwitch = document.getElementById("flexSwitchCheckDefault");
+function toggleButtonState() {
+  if (roundTripSwitch.checked) {
+    // Round trip: require all fields including return date
+    buttonToDisable.disabled =
+      !search1Input.value.trim() ||
+      !search2Input.value.trim() ||
+      !searchCalendar1.value.trim() ||
+      !searchCalendar2.value.trim();
+  } else {
+    // One way: ignore return date
+    buttonToDisable.disabled =
+      !search1Input.value.trim() ||
+      !search2Input.value.trim() ||
+      !searchCalendar1.value.trim();
+  }
+}
+// function toggleButtonState() {
+//   // Disable the button if either input is empty
+//   buttonToDisable.disabled = !search1Input.value.trim() || !search2Input.value.trim() || !searchCalendar1.value.trim();
+// }
+
+// Add event listeners to both inputs
+search1Input.addEventListener('input', toggleButtonState);
+search2Input.addEventListener('input', toggleButtonState);
+searchCalendar1.addEventListener('input', toggleButtonState);
+searchCalendar2.addEventListener('input', toggleButtonState);
+roundTripSwitch.addEventListener('change', toggleButtonState);
+
+
+// disableButton()
+
+//   document.getElementById("modal-Button").disabled = true;
+//   if (flightOrigin === '') {
+//     document.getElementById("modal-Button").disabled = true;
+
+//   } else {
+//     document.getElementById("modal-Button").disabled = false;
+//   }
+// }
+
+// function originLoad(){
+//   document.getElementById("modal-Button").disabled = true;
+// }
+
+
+
+// async function getIataFlightData(){
+//   const testButton =  document.getElementById("getTestButton");
+//   const baseUrl = "http://localhost:5000/getTestRoute"
+//   testButton.addEventListener('click', async function getIataData(e){
+//     e.preventDefault();
+//     const res = await fetch(baseUrl,{
+//       method:"GET"
+//     });
+
+//     console.log("Getting Iata data");
+//   });
+
+// }
+// async function postIataFlightData(){
+//   const testButton =  document.getElementById("postTestButton");
+//   const baseUrl = "http://localhost:5000/postTestRoute"
+//   testButton.addEventListener('click', async function getIataData(e){
+//     e.preventDefault();
+//     const res = await fetch(baseUrl,{
+//       method:"POST",
+//       headers: {
+//         "Content-Type": 'application/json'
+//       },
+//       body:JSON.stringify({
+//         test:"Front End Data"
+//       })
+//     });
+//     console.log("redirecting...");
+// // window.location.href = "http://localhost:5000/testFlights"
+//   });
+
+// }
+// postIataFlightData();
+
+// async function submitValidation(){
+//   const cities = await fetch("./json/airports.json");
+//   const loadedCities = await cities.json();
+//   let countries = [];    
+//   let getDestInput = document.getElementById("destinationMyInput");
+
+//   for(let i = 0; i < loadedCities.length; i++){
+
+//       let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+
+//       countries.push(citieFinal);
+//   }
+
+
+//   getDestInput.addEventListener("change", async function (e){
+
+//   let getInput = e.target.value;
+//   console.log("Your input is: " + getInput);
+
+//   // for(let n = 0; n<countries.length; n++){
+//   // if(countries[n] != getInput){
+//   //   console.log("Disabled");
+//   // }
+//   // }
+//   const baseUrl = "http://localhost:5000/destValidation"
+
+
+//   const postDate = await fetch(baseUrl,{
+//     method:"POST",
+//     headers: {
+//       "Content-Type": 'application/json'
+//     },
+//     body:JSON.stringify({
+//       destValid: getInput
+//     })
+// });
+//   // countries.forEach(country =>{
+//   //   if(country !=  getInput){
+//   //     console.log("False: ");
+//   //   }
+//   // })
+//  console.log("Testing Async!");
+// });
+
+
+// }
+
+
+function checking() {
+  if (document.getElementById('flexSwitchCheckDefault').checked) {
     console.log('Round Trip');
     document.getElementById('returnDate').style.display = 'block';
-  }else{
+  } else {
     console.log('No Round trip');
     document.getElementById('returnDate').style.display = 'none';
   }
 }
 
 
-async function searchFlight(){
-  const testButton =  document.getElementById("modal-Button");
-  const baseUrl = "http://localhost:5000/getTestRoute"
-  testButton.addEventListener('click', async function getIataData(e){
-    e.preventDefault();
-    const res = await fetch(baseUrl,{
-      method:"GET"
-    });
+checking()
+// async function searchFlight(){
+//   const testButton =  document.getElementById("modal-Button");
+//   const baseUrl = "http://localhost:5000/getTestRoute"
+//   testButton.addEventListener('click', async function getIataData(e){
+//     e.preventDefault();
+//     const res = await fetch(baseUrl,{
+//       method:"GET"
+//     });
 
-    console.log("Testing redirection");
-    function windowRedirect(){
-      window.location.href = "http://localhost:5000/testFlights"
+//     console.log("Testing redirection");
+//     function windowRedirect(){
+//       window.location.href = "http://localhost:5000/testFlights"
+//       // window.location.href = "http://localhost:5000/testFlights"
+
+//     }
+//     const myTimeout = setTimeout(windowRedirect, 10000);
+//   });
+
+// }
+// searchFlight()
+
+async function searchFlight() {
+  const flightButton = document.getElementById("modal-Button");
+  const baseUrl = "http://localhost:5000/flights"
+  flightButton.addEventListener('click', async function getIataData(e) {
+    e.preventDefault();
+    const res = await fetch(baseUrl, {
+      method: "GET"
+    });
+    // const myTimeout = setTimeout(10000);
+    function windowRedirect() {
+      // window.location.href = "http://localhost:5000/jsonMyRoute"
+      window.location.href = "http://localhost:5000/htmlFlights"
+      // window.location.href = "http://localhost:5000/testFlights"
 
     }
     const myTimeout = setTimeout(windowRedirect, 10000);
+
   });
 
 }
 
-getDepartureDate();
-setMinDate();
-getIataFlightData()
-postIataFlightData()
-destinationautocomplete();
-originautocomplete();
+async function numberOfAdultPassangers() {
+  const baseUrl = "http://localhost:5000/adults"
+  let numberOfAdults = document.getElementById("adult");
+
+  const destPost = await fetch(baseUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    body: JSON.stringify({
+      amountOfAdults: numberOfAdults.value
+
+    })
+  });
+
+  yourCabin.addEventListener('change', async function () {
+
+  })
+}
+function numberOfAdultPassangersChange() {
+  const baseUrl = "http://localhost:5000/adults"
+  let numberOfAdults = document.getElementById("adult");
+  numberOfAdults.addEventListener('change', async function () {
+
+    const destPost = await fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        amountOfAdults: numberOfAdults.value
+
+      })
+    });
+  })
+
+
+}
+async function cabin() {
+  const baseUrl = "http://localhost:5000/cabin"
+  let yourCabin = document.getElementById("classOfService");
+  let selectedValue = yourCabin.value;
+  const destPost = await fetch(baseUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    body: JSON.stringify({
+      selectedCabin: yourCabin.value
+
+    })
+  });
+
+
+}
+function cabinChange() {
+  let yourCabin = document.getElementById("classOfService");
+  yourCabin.addEventListener('change', async function () {
+    const baseUrl = "http://localhost:5000/cabin"
+    let selectedValue = yourCabin.value;
+    const destPost = await fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        selectedCabin: yourCabin.value
+
+      })
+    });
+  })
+}
+
+function submitFlight() {
+  console.log("Submitting flight");
+}
+numberOfAdultPassangers();
+cabinChange();
+cabin();
+numberOfAdultPassangersChange();
+checking();
+// getIataFlightData()
+// postIataFlightData()
 searchFlight();
 
 
-  // document.getElementById("flightOrigin").addEventListener("load", originLoad);
-  
-  // document.getElementById("flightOrigin").addEventListener('input', validateOriginInput);
-  
-  checking();
+// document.getElementById("flightOrigin").addEventListener("load", originLoad);
+
+// document.getElementById("flightOrigin").addEventListener('input', validateOriginInput);
+
+
+
