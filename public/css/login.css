@@ -1,0 +1,28 @@
+  .rectangle {
+      width: 50%; /* Set the width */
+      height: 400px; /* Set the height */
+        background: linear-gradient(
+    135deg,
+    #d3d3d3 0%,
+    #f0f0f0 25%,
+    #d3d3d3 50%,
+    #a9a9a9 75%,
+    #d3d3d3 100%
+  );
+  background-size: 200% 200%;
+  animation: shine 4s linear infinite;
+ /* Set the background color */
+      border: 5px solid black; /* Optional: Add a border */
+    }
+    
+
+
+  .loginRectangle {
+      width:35%; 
+    }
+
+    
+.custom-width {
+  width: 20px; /* Or any value like 50%, 20rem, etc. */
+}
+

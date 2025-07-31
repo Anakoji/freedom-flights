@@ -1,0 +1,25 @@
+#dest-autoComplete-list{
+    overflow-y: auto;
+    z-index: 10;
+    width: 178px;
+    background-color: black;
+    color:white;
+    height: 200px;
+    position:absolute;
+}
+#origin-autoComplete-list{
+    overflow-y: auto;
+    z-index: 10;
+    width: 178px;
+    background-color: black;
+    color:white;
+    height: 200px;
+    position:absolute;
+}
+#list-div{
+    z-index: 20;
+}
+
+#secondInput{
+ 
+}

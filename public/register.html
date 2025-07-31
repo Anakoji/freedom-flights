@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regisiter</title>
+  </head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+  />
+  <link rel="stylesheet" href="./css/register.css" />
+
+  <body>
+    <nav
+      class="navbar navbar-expand-xl navbar-dark bg-dark"
+      aria-label="Sixth navbar example"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Global Link Travel</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsExample06"
+          aria-controls="navbarsExample06"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample06">
+          <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >Flights</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/hotels">Hotels</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/cars">Cars</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutUs">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contactUs">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/employment">We're Hiring!</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <center>
+      <h1>Register</h1>
+      <div class="register-back-ground-box">
+        <br />
+        <br />
+        <br />
+        <form>
+          <div class="input-width">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                id="username"
+              />
+            </div>
+            <span id="usernameError" style="color: red"></span>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">@</span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="E-mail"
+                aria-label="email"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                id="email"
+              />
+              <span class="input-group-text" id="basic-addon2"
+                >@example.com</span
+              >
+            </div>
+            <span id="emailError" style="color: red"></span>
+            <div class="input-group mb-3">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                aria-label="password"
+                aria-describedby="basic-addon2"
+                autocomplete="off"
+                id="password"
+              />
+            </div>
+            <span id="passwordError" style="color: red"></span>
+            <div class="input-group mb-3">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm Password"
+                aria-label="confirm password"
+                aria-describedby="basic-addon2"
+                autocomplete="off"
+                id="confirmPassword"
+              />
+            </div>
+            <span id="confirmPasswordError" style="color: red"></span>
+
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone Number"
+                aria-label="PhoneNumber"
+                aria-describedby="basic-addon2"
+                autocomplete="off"
+                id="phoneNumber"
+              />
+            </div>
+            <span id="phoneError" style="color: red"></span>
+
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Address"
+                aria-label="Address"
+                aria-describedby="basic-addon2"
+                autocomplete="off"
+                id="address"
+              />
+            </div>
+            <span id="addressError" style="color: red"></span>
+            <div>
+              <span>Date of Birth: </span>
+              <br />
+              <select id="day-select"></select>
+              <select id="birth-year"></select>
+              <select name="month" id="month">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+            <br />
+            <span>Country:</span>
+            <br />
+            <select id="country-select" style="width: 140px">
+              <option disabled selected>Select a country</option>
+            </select>
+          </div>
+        </form>
+
+        <br />
+        <button
+          type="button"
+          class="btn btn-danger"
+          id="registerButton"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <div id="spinnerBorder" class="spinner-borde" role="status">
+            <span id="visuallyHidden" class="visually-hidde">Register</span>
+          </div>
+        </button>
+      </div>
+    </center>
+    <br />
+    <br />
+
+    <!-- Your modal HTML -->
+    <div
+      class="modal fade"
+      id="errorModal"
+      tabindex="-1"
+      aria-labelledby="errorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Registration Error</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="modal-body1">
+            <!-- Error message will appear here -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Your modal HTML -->
+    <div
+      class="modal fade"
+      id="successModal"
+      data-bs-backdrop="static"
+      tabindex="-1"
+      aria-labelledby="errorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">
+              Registration Successfull!
+            </h5>
+          </div>
+          <span class="modal-body">
+            <!-- Error message will appear here -->
+             <center id="modal-body2">
+                
+             </center>
+            
+            </span>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="b-example-divider"></div>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="/" class="nav-link px-2 text-muted">Flights</a>
+          </li>
+          <li class="nav-item">
+            <a href="/hotels" class="nav-link px-2 text-muted">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a href="/cars" class="nav-link px-2 text-muted">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a href="/aboutUs" class="nav-link px-2 text-muted">About us</a>
+          </li>
+          <li class="nav-item">
+            <a href="/contactUs" class="nav-link px-2 text-muted">Contact us</a>
+          </li>
+          <li class="nav-item">
+            <a href="/employment" class="nav-link px-2 text-muted"
+              >We're hiring</a
+            >
+          </li>
+        </ul>
+        <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+      </footer>
+    </div>
+    
+  </body>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/register.js"></script>
+
+ 
+
+</html>

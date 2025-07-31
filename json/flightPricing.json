@@ -1,0 +1,429 @@
+{
+  "headers": {
+    "date": "Thu, 17 Jul 2025 02:15:45 GMT",
+    "content-type": "application/vnd.amadeus+json",
+    "content-length": "2281",
+    "connection": "keep-alive",
+    "ama-internal-message-version": "14.1",
+    "ama-request-id": "00016IGTSZIUA8",
+    "ama-gateway-request-id": "rrt-026879fa3a2104c2c-a-de-620840-517625621-1",
+    "access-control-allow-headers": "origin, x-requested-with, accept, Content-Type, Authorization",
+    "access-control-max-age": "3628800",
+    "access-control-allow-methods": "*",
+    "server": "Amadeus",
+    "access-control-allow-origin": "*"
+  },
+  "statusCode": 200,
+  "request": {
+    "host": "test.api.amadeus.com",
+    "port": 443,
+    "ssl": true,
+    "scheme": "https",
+    "verb": "POST",
+    "path": "/v1/shopping/flight-offers/pricing",
+    "params": "{\"data\":{\"type\":\"flight-offers-pricing\",\"flightOffers\":[{\"type\":\"flight-offer\",\"id\":\"1\",\"source\":\"GDS\",\"instantTicketingRequired\":false,\"nonHomogeneous\":false,\"oneWay\":false,\"isUpsellOffer\":false,\"lastTicketingDate\":\"2025-08-13\",\"lastTicketingDateTime\":\"2025-08-13\",\"numberOfBookableSeats\":9,\"itineraries\":[{\"duration\":\"PT26H25M\",\"segments\":[{\"departure\":{\"iataCode\":\"YYZ\",\"terminal\":\"1\",\"at\":\"2025-08-13T22:25:00\"},\"arrival\":{\"iataCode\":\"CMN\",\"terminal\":\"2\",\"at\":\"2025-08-14T10:50:00\"},\"carrierCode\":\"AT\",\"number\":\"211\",\"aircraft\":{\"code\":\"789\"},\"operating\":{\"carrierCode\":\"AT\"},\"duration\":\"PT7H25M\",\"id\":\"61\",\"numberOfStops\":0,\"blacklistedInEU\":false},{\"departure\":{\"iataCode\":\"CMN\",\"terminal\":\"1\",\"at\":\"2025-08-15T01:10:00\"},\"arrival\":{\"iataCode\":\"LOS\",\"terminal\":\"2\",\"at\":\"2025-08-15T05:50:00\"},\"carrierCode\":\"AT\",\"number\":\"555\",\"aircraft\":{\"code\":\"73H\"},\"operating\":{\"carrierCode\":\"AT\"},\"duration\":\"PT4H40M\",\"id\":\"62\",\"numberOfStops\":0,\"blacklistedInEU\":false}]}],\"price\":{\"currency\":\"USD\",\"total\":\"475.20\",\"base\":\"156.00\",\"fees\":[{\"amount\":\"0.00\",\"type\":\"SUPPLIER\"},{\"amount\":\"0.00\",\"type\":\"TICKETING\"}],\"grandTotal\":\"475.20\"},\"pricingOptions\":{\"fareType\":[\"PUBLISHED\"],\"includedCheckedBagsOnly\":true},\"validatingAirlineCodes\":[\"AT\"],\"travelerPricings\":[{\"travelerId\":\"1\",\"fareOption\":\"STANDARD\",\"travelerType\":\"ADULT\",\"price\":{\"currency\":\"USD\",\"total\":\"475.20\",\"base\":\"156.00\"},\"fareDetailsBySegment\":[{\"segmentId\":\"61\",\"cabin\":\"ECONOMY\",\"fareBasis\":\"QA0WAAMA\",\"brandedFare\":\"ECOFLEX\",\"brandedFareLabel\":\"ECO FLEX\",\"class\":\"Q\",\"includedCheckedBags\":{\"quantity\":2},\"includedCabinBags\":{\"quantity\":1},\"amenities\":[{\"description\":\"CHECKED BAG THIRD\",\"isChargeable\":true,\"amenityType\":\"BAGGAGE\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"PRE RESERVATION SEAT ASSIGNMEN\",\"isChargeable\":true,\"amenityType\":\"PRE_RESERVED_SEAT\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"MEAL BEVERAGE\",\"isChargeable\":false,\"amenityType\":\"MEAL\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"100 PERCENT MILES\",\"isChargeable\":false,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"CHANGE BEFORE DEPARTURE\",\"isChargeable\":true,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"CHANGE AFTER DEPARTURE\",\"isChargeable\":true,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"REFUND BEFORE DEPARTURE\",\"isChargeable\":true,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}}]},{\"segmentId\":\"62\",\"cabin\":\"ECONOMY\",\"fareBasis\":\"QA0WAAMA\",\"brandedFare\":\"ECOFLEX\",\"brandedFareLabel\":\"ECO FLEX\",\"class\":\"Q\",\"includedCheckedBags\":{\"quantity\":2},\"includedCabinBags\":{\"quantity\":1},\"amenities\":[{\"description\":\"CHECKED BAG THIRD\",\"isChargeable\":true,\"amenityType\":\"BAGGAGE\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"PRE RESERVATION SEAT ASSIGNMEN\",\"isChargeable\":true,\"amenityType\":\"PRE_RESERVED_SEAT\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"MEAL BEVERAGE\",\"isChargeable\":false,\"amenityType\":\"MEAL\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"100 PERCENT MILES\",\"isChargeable\":false,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"CHANGE BEFORE DEPARTURE\",\"isChargeable\":true,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"CHANGE AFTER DEPARTURE\",\"isChargeable\":true,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}},{\"description\":\"REFUND BEFORE DEPARTURE\",\"isChargeable\":true,\"amenityType\":\"BRANDED_FARES\",\"amenityProvider\":{\"name\":\"BrandedFare\"}}]}]}]}]}}",
+    "queryPath": "/v1/shopping/flight-offers/pricing",
+    "bearerToken": "8BTQuyeCmGqZX7mZ6hkEKqpvEyBm",
+    "clientVersion": "8.1.0",
+    "languageVersion": "22.16.0",
+    "appId": null,
+    "appVersion": null,
+    "headers": {
+      "User-Agent": "amadeus-node/8.1.0 node/22.16.0",
+      "Accept": "application/json, application/vnd.amadeus+json",
+      "Authorization": "Bearer 8BTQuyeCmGqZX7mZ6hkEKqpvEyBm",
+      "Content-Type": "application/vnd.amadeus+json",
+      "X-HTTP-Method-Override": "GET"
+    },
+    "ListHTTPOverride": [
+      "/v2/shopping/flight-offers",
+      "/v1/shopping/seatmaps",
+      "/v1/shopping/availability/flight-availabilities",
+      "/v2/shopping/flight-offers/prediction",
+      "/v1/shopping/flight-offers/pricing",
+      "/v1/shopping/flight-offers/upselling"
+    ]
+  },
+  "body": "{\"data\":{\"type\":\"flight-offers-pricing\",\"flightOffers\":[{\"type\":\"flight-offer\",\"id\":\"1\",\"source\":\"GDS\",\"instantTicketingRequired\":false,\"nonHomogeneous\":false,\"paymentCardRequired\":false,\"lastTicketingDate\":\"2025-08-13\",\"itineraries\":[{\"segments\":[{\"departure\":{\"iataCode\":\"YYZ\",\"terminal\":\"1\",\"at\":\"2025-08-13T22:25:00\"},\"arrival\":{\"iataCode\":\"CMN\",\"terminal\":\"2\",\"at\":\"2025-08-14T10:50:00\"},\"carrierCode\":\"AT\",\"number\":\"211\",\"aircraft\":{\"code\":\"789\"},\"operating\":{\"carrierCode\":\"AT\"},\"duration\":\"PT7H25M\",\"id\":\"61\",\"numberOfStops\":0,\"co2Emissions\":[{\"weight\":368,\"weightUnit\":\"KG\",\"cabin\":\"ECONOMY\"}]},{\"departure\":{\"iataCode\":\"CMN\",\"terminal\":\"1\",\"at\":\"2025-08-15T01:10:00\"},\"arrival\":{\"iataCode\":\"LOS\",\"terminal\":\"2\",\"at\":\"2025-08-15T05:50:00\"},\"carrierCode\":\"AT\",\"number\":\"555\",\"aircraft\":{\"code\":\"73H\"},\"operating\":{\"carrierCode\":\"AT\"},\"duration\":\"PT4H40M\",\"id\":\"62\",\"numberOfStops\":0,\"co2Emissions\":[{\"weight\":245,\"weightUnit\":\"KG\",\"cabin\":\"ECONOMY\"}]}]}],\"price\":{\"currency\":\"USD\",\"total\":\"475.20\",\"base\":\"156.00\",\"fees\":[{\"amount\":\"0.00\",\"type\":\"SUPPLIER\"},{\"amount\":\"0.00\",\"type\":\"TICKETING\"},{\"amount\":\"0.00\",\"type\":\"FORM_OF_PAYMENT\"}],\"grandTotal\":\"475.20\",\"billingCurrency\":\"USD\"},\"pricingOptions\":{\"fareType\":[\"PUBLISHED\"],\"includedCheckedBagsOnly\":true},\"validatingAirlineCodes\":[\"AT\"],\"travelerPricings\":[{\"travelerId\":\"1\",\"fareOption\":\"STANDARD\",\"travelerType\":\"ADULT\",\"price\":{\"currency\":\"USD\",\"total\":\"475.20\",\"base\":\"156.00\",\"taxes\":[{\"amount\":\"3.50\",\"code\":\"RC\"},{\"amount\":\"20.40\",\"code\":\"MA\"},{\"amount\":\"228.00\",\"code\":\"YQ\"},{\"amount\":\"15.00\",\"code\":\"YR\"},{\"amount\":\"25.20\",\"code\":\"CA\"},{\"amount\":\"27.10\",\"code\":\"SQ\"}],\"refundableTaxes\":\"324.20\"},\"fareDetailsBySegment\":[{\"segmentId\":\"61\",\"cabin\":\"ECONOMY\",\"fareBasis\":\"QA0WAAMA\",\"brandedFare\":\"ECOFLEX\",\"class\":\"Q\",\"includedCheckedBags\":{\"quantity\":2}},{\"segmentId\":\"62\",\"cabin\":\"ECONOMY\",\"fareBasis\":\"QA0WAAMA\",\"brandedFare\":\"ECOFLEX\",\"class\":\"Q\",\"includedCheckedBags\":{\"quantity\":2}}]}]}],\"bookingRequirements\":{\"emailAddressRequired\":true,\"mobilePhoneNumberRequired\":true,\"travelerRequirements\":[{\"travelerId\":\"1\",\"documentRequired\":true}]}},\"dictionaries\":{\"locations\":{\"LOS\":{\"cityCode\":\"LOS\",\"countryCode\":\"NG\"},\"CMN\":{\"cityCode\":\"CMN\",\"countryCode\":\"MA\"},\"YYZ\":{\"cityCode\":\"YTO\",\"countryCode\":\"CA\"}}}}",
+  "result": {
+    "data": {
+      "type": "flight-offers-pricing",
+      "flightOffers": [
+        {
+          "type": "flight-offer",
+          "id": "1",
+          "source": "GDS",
+          "instantTicketingRequired": false,
+          "nonHomogeneous": false,
+          "paymentCardRequired": false,
+          "lastTicketingDate": "2025-08-13",
+          "itineraries": [
+            {
+              "segments": [
+                {
+                  "departure": {
+                    "iataCode": "YYZ",
+                    "terminal": "1",
+                    "at": "2025-08-13T22:25:00"
+                  },
+                  "arrival": {
+                    "iataCode": "CMN",
+                    "terminal": "2",
+                    "at": "2025-08-14T10:50:00"
+                  },
+                  "carrierCode": "AT",
+                  "number": "211",
+                  "aircraft": {
+                    "code": "789"
+                  },
+                  "operating": {
+                    "carrierCode": "AT"
+                  },
+                  "duration": "PT7H25M",
+                  "id": "61",
+                  "numberOfStops": 0,
+                  "co2Emissions": [
+                    {
+                      "weight": 368,
+                      "weightUnit": "KG",
+                      "cabin": "ECONOMY"
+                    }
+                  ]
+                },
+                {
+                  "departure": {
+                    "iataCode": "CMN",
+                    "terminal": "1",
+                    "at": "2025-08-15T01:10:00"
+                  },
+                  "arrival": {
+                    "iataCode": "LOS",
+                    "terminal": "2",
+                    "at": "2025-08-15T05:50:00"
+                  },
+                  "carrierCode": "AT",
+                  "number": "555",
+                  "aircraft": {
+                    "code": "73H"
+                  },
+                  "operating": {
+                    "carrierCode": "AT"
+                  },
+                  "duration": "PT4H40M",
+                  "id": "62",
+                  "numberOfStops": 0,
+                  "co2Emissions": [
+                    {
+                      "weight": 245,
+                      "weightUnit": "KG",
+                      "cabin": "ECONOMY"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "price": {
+            "currency": "USD",
+            "total": "475.20",
+            "base": "156.00",
+            "fees": [
+              {
+                "amount": "0.00",
+                "type": "SUPPLIER"
+              },
+              {
+                "amount": "0.00",
+                "type": "TICKETING"
+              },
+              {
+                "amount": "0.00",
+                "type": "FORM_OF_PAYMENT"
+              }
+            ],
+            "grandTotal": "475.20",
+            "billingCurrency": "USD"
+          },
+          "pricingOptions": {
+            "fareType": [
+              "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+          },
+          "validatingAirlineCodes": [
+            "AT"
+          ],
+          "travelerPricings": [
+            {
+              "travelerId": "1",
+              "fareOption": "STANDARD",
+              "travelerType": "ADULT",
+              "price": {
+                "currency": "USD",
+                "total": "475.20",
+                "base": "156.00",
+                "taxes": [
+                  {
+                    "amount": "3.50",
+                    "code": "RC"
+                  },
+                  {
+                    "amount": "20.40",
+                    "code": "MA"
+                  },
+                  {
+                    "amount": "228.00",
+                    "code": "YQ"
+                  },
+                  {
+                    "amount": "15.00",
+                    "code": "YR"
+                  },
+                  {
+                    "amount": "25.20",
+                    "code": "CA"
+                  },
+                  {
+                    "amount": "27.10",
+                    "code": "SQ"
+                  }
+                ],
+                "refundableTaxes": "324.20"
+              },
+              "fareDetailsBySegment": [
+                {
+                  "segmentId": "61",
+                  "cabin": "ECONOMY",
+                  "fareBasis": "QA0WAAMA",
+                  "brandedFare": "ECOFLEX",
+                  "class": "Q",
+                  "includedCheckedBags": {
+                    "quantity": 2
+                  }
+                },
+                {
+                  "segmentId": "62",
+                  "cabin": "ECONOMY",
+                  "fareBasis": "QA0WAAMA",
+                  "brandedFare": "ECOFLEX",
+                  "class": "Q",
+                  "includedCheckedBags": {
+                    "quantity": 2
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "bookingRequirements": {
+        "emailAddressRequired": true,
+        "mobilePhoneNumberRequired": true,
+        "travelerRequirements": [
+          {
+            "travelerId": "1",
+            "documentRequired": true
+          }
+        ]
+      }
+    },
+    "dictionaries": {
+      "locations": {
+        "LOS": {
+          "cityCode": "LOS",
+          "countryCode": "NG"
+        },
+        "CMN": {
+          "cityCode": "CMN",
+          "countryCode": "MA"
+        },
+        "YYZ": {
+          "cityCode": "YTO",
+          "countryCode": "CA"
+        }
+      }
+    }
+  },
+  "data": {
+    "type": "flight-offers-pricing",
+    "flightOffers": [
+      {
+        "type": "flight-offer",
+        "id": "1",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "paymentCardRequired": false,
+        "lastTicketingDate": "2025-08-13",
+        "itineraries": [
+          {
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "YYZ",
+                  "terminal": "1",
+                  "at": "2025-08-13T22:25:00"
+                },
+                "arrival": {
+                  "iataCode": "CMN",
+                  "terminal": "2",
+                  "at": "2025-08-14T10:50:00"
+                },
+                "carrierCode": "AT",
+                "number": "211",
+                "aircraft": {
+                  "code": "789"
+                },
+                "operating": {
+                  "carrierCode": "AT"
+                },
+                "duration": "PT7H25M",
+                "id": "61",
+                "numberOfStops": 0,
+                "co2Emissions": [
+                  {
+                    "weight": 368,
+                    "weightUnit": "KG",
+                    "cabin": "ECONOMY"
+                  }
+                ]
+              },
+              {
+                "departure": {
+                  "iataCode": "CMN",
+                  "terminal": "1",
+                  "at": "2025-08-15T01:10:00"
+                },
+                "arrival": {
+                  "iataCode": "LOS",
+                  "terminal": "2",
+                  "at": "2025-08-15T05:50:00"
+                },
+                "carrierCode": "AT",
+                "number": "555",
+                "aircraft": {
+                  "code": "73H"
+                },
+                "operating": {
+                  "carrierCode": "AT"
+                },
+                "duration": "PT4H40M",
+                "id": "62",
+                "numberOfStops": 0,
+                "co2Emissions": [
+                  {
+                    "weight": 245,
+                    "weightUnit": "KG",
+                    "cabin": "ECONOMY"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "price": {
+          "currency": "USD",
+          "total": "475.20",
+          "base": "156.00",
+          "fees": [
+            {
+              "amount": "0.00",
+              "type": "SUPPLIER"
+            },
+            {
+              "amount": "0.00",
+              "type": "TICKETING"
+            },
+            {
+              "amount": "0.00",
+              "type": "FORM_OF_PAYMENT"
+            }
+          ],
+          "grandTotal": "475.20",
+          "billingCurrency": "USD"
+        },
+        "pricingOptions": {
+          "fareType": [
+            "PUBLISHED"
+          ],
+          "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+          "AT"
+        ],
+        "travelerPricings": [
+          {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+              "currency": "USD",
+              "total": "475.20",
+              "base": "156.00",
+              "taxes": [
+                {
+                  "amount": "3.50",
+                  "code": "RC"
+                },
+                {
+                  "amount": "20.40",
+                  "code": "MA"
+                },
+                {
+                  "amount": "228.00",
+                  "code": "YQ"
+                },
+                {
+                  "amount": "15.00",
+                  "code": "YR"
+                },
+                {
+                  "amount": "25.20",
+                  "code": "CA"
+                },
+                {
+                  "amount": "27.10",
+                  "code": "SQ"
+                }
+              ],
+              "refundableTaxes": "324.20"
+            },
+            "fareDetailsBySegment": [
+              {
+                "segmentId": "61",
+                "cabin": "ECONOMY",
+                "fareBasis": "QA0WAAMA",
+                "brandedFare": "ECOFLEX",
+                "class": "Q",
+                "includedCheckedBags": {
+                  "quantity": 2
+                }
+              },
+              {
+                "segmentId": "62",
+                "cabin": "ECONOMY",
+                "fareBasis": "QA0WAAMA",
+                "brandedFare": "ECOFLEX",
+                "class": "Q",
+                "includedCheckedBags": {
+                  "quantity": 2
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "bookingRequirements": {
+      "emailAddressRequired": true,
+      "mobilePhoneNumberRequired": true,
+      "travelerRequirements": [
+        {
+          "travelerId": "1",
+          "documentRequired": true
+        }
+      ]
+    }
+  },
+  "parsed": true
+}

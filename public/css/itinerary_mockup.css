@@ -1,0 +1,81 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f8fb;
+  padding: 20px;
+}
+
+.ticket {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.journey {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.info-box {
+  margin-top: 15px;
+}
+
+.seats {
+  color: #d94c4c;
+  font-weight: bold;
+}
+
+.progress-bar {
+  background: #eee;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px 0 10px;
+}
+.progress-bar > div {
+  background: #4caf50;
+  height: 100%;
+}
+
+.cost-section {
+  text-align: center;
+  margin-top: 20px;
+}
+.price {
+  font-size: 1.5em;
+  color: #1a73e8;
+}
+.confirm-btn {
+  background: #1a73e8;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.confirm-btn:hover {
+  background: #155cb0;
+}
+
+@media (max-width: 600px) {
+  .ticket {
+    padding: 15px;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .journey h2 {
+    font-size: 1.2em;
+  }
+
+  .price {
+    font-size: 1.2em;
+  }
+
+  .confirm-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,268 @@
+// const { createElement } = require("react");
+
+const getBtn = document.getElementById("get");
+const postBtn = document.getElementById("post");
+const input = document.getElementById("input");
+const answer = document.getElementById("answer");
+const baseUrl = "http://localhost:5000/getHtmlFlights";
+let listNumber = 10;
+
+console.log("Opened");
+
+
+async function getInfo(e) {
+    // const getLocalJson = await fetch('../json/flightNewData.json', {
+    //     method: "GET"
+    // });
+   
+    const res = await fetch(baseUrl, {
+        method: "GET"
+    });
+    // const html = await getLocalJson.json();
+    const html = await res.json();
+
+    let flightCarrierCode;
+
+    let flightCurrency;
+    let flightBasePrice;
+    let flightGrandTotal;
+    let flightPriceDiv2 = document.createElement("div");
+    let advertDiv = document.createElement("div");
+    let flightDataDiv1 = document.createElement("div");
+    flightDataDiv1.id = "flightDataDiv"
+    document.getElementById("data").appendChild(flightDataDiv1)
+
+
+
+
+
+
+    advertDiv.id = "advertisment-div";
+
+    for (let i = 0; i < listNumber; i++) {
+        let flightListingBox = document.createElement("div");
+        let flight_id_p_tag = document.createElement("p");
+        let ticketingDate = document.createElement("p");
+        let numberOfSeats = document.createElement("p");
+        let flightDurration = document.createElement("p");
+        let flightDepartureTitle = document.createElement("h2");
+        let flightArrivalTitle = document.createElement("h2");
+        let flightTitleDiv = document.createElement("div");
+        let flightTitleDepartureSpan = document.createElement("span");
+        let flightTitleArrivalSpan = document.createElement("span");
+        let payButton = document.createElement("button");
+        let payButtonSpan = document.createElement("span");
+        let priceTag = document.createElement("p");
+        let priceCurrency;
+        let flightDeparture;
+        let flightDepartureAt;
+        let flightArrival;
+        let flightArrivalAt;
+        priceTag.id = "price-tag-" + i;
+
+        payButtonSpan.id = "payButton-span-" + i;
+        flightTitleDepartureSpan.id = "flight-title-departure-span-" + i;
+        flightTitleArrivalSpan.id = "flight-title-arrival-span-" + i;
+        flightTitleDiv.id = "flight-listing-title-" + i
+        flightListingBox.id = "flight-listing-" + i
+
+        document.getElementById("flightDataDiv").appendChild(flightListingBox)
+
+
+
+        document.getElementById("flight-listing-" + i).appendChild(flight_id_p_tag);
+        document.getElementById("flight-listing-" + i).appendChild(ticketingDate);
+        document.getElementById("flight-listing-" + i).appendChild(numberOfSeats);
+        document.getElementById("flight-listing-" + i).appendChild(flightDurration);
+        document.getElementById("flight-listing-" + i).appendChild(flightTitleDiv);
+        document.getElementById("flight-listing-" + i).appendChild(priceTag);
+        document.getElementById("flight-listing-title-" + i).appendChild(flightTitleDepartureSpan);
+        document.getElementById("flight-listing-title-" + i).appendChild(flightTitleArrivalSpan);
+        document.getElementById("flight-title-departure-span-" + i).appendChild(flightDepartureTitle);
+        document.getElementById("flight-title-arrival-span-" + i).appendChild(flightArrivalTitle);
+
+        document.getElementById("flight-listing-" + i).appendChild(payButtonSpan);
+
+        document.getElementById("flight-title-departure-span-" + i).style.float = "left"
+        document.getElementById("flight-title-arrival-span-" + i).style.float = "right"
+        document.getElementById("flight-title-departure-span-" + i).style.textDecoration = "none"
+        document.getElementById("flight-title-arrival-span-" + i).style.textDecoration = "none"
+        document.getElementById("flight-title-arrival-span-" + i).style.position = "relative"
+        document.getElementById("flight-title-departure-span-" + i).style.position = "relative"
+        document.getElementById("flight-title-arrival-span-" + i).style.right = "100px"
+        document.getElementById("flight-title-departure-span-" + i).style.left = "100px"
+      
+        flight_id_p_tag.innerText = "Flight ID: " + JSON.stringify(html[i].id, null, 4);
+        ticketingDate.innerText = "Last Ticketing Date: " + JSON.stringify(html[i].lastTicketingDate, null, 4);
+        numberOfSeats.innerText = "Number of Seats Available: " + JSON.stringify(html[i].numberOfBookableSeats, null, 4);
+        flightDurration.innerText = "Flight Durration: " + JSON.stringify(html[i].itineraries[0].duration, null, 4);
+        flightDepartureTitle.innerText = "Flight Departure";
+        flightArrivalTitle.innerText = "Flight Arrival";
+        priceCurrency = JSON.stringify(html[i].price.currency, null, 4).slice(1).slice(0, 0 - 1);
+        priceTag.innerText = "Price: " + JSON.stringify(html[i].price.grandTotal, null, 4).slice(1).slice(0, 0 - 1) + " " + priceCurrency
+
+        payButton.innerText = "Pay Now!"
+        payButton.id = "payButton-" + i
+        payButton.classList.add("btn")
+        payButton.classList.add("btn-danger")
+      
+
+        document.getElementById("payButton-span-" + i).appendChild(payButton);
+
+        for (let z = 0; z < html[i].itineraries[0].segments.length; z++) {
+            let flightResultDepartureSpan = document.createElement("span");
+            let flightResultDepartureTerminalSpan = document.createElement("span");
+            let flightResultDepartureAtSpan = document.createElement("span");
+            let flightResultTerminalArrivalSpan = document.createElement("span");
+            let flightResultArrivalSpan = document.createElement("span");
+            let flightResultArrivalAtSpan = document.createElement("span");
+
+            flightResultDepartureSpan.id = "flight-dep-result-" + z + '-' + i;
+            flightResultArrivalSpan.id = "flight-ariv-result-" + z + '-' + i;
+            flightDepartureIata = JSON.stringify(html[i].itineraries[0].segments[z].departure.iataCode, null, 4) + ("\n");
+            flightDepartureTerminal = JSON.stringify(html[i].itineraries[0].segments[z].departure.terminal, null, 4) + ("\n");
+            flightDepartureAt = JSON.stringify(html[i].itineraries[0].segments[z].departure.at, null, 4) + ("\n") + ("\n");
+
+
+            flightArrival = JSON.stringify(html[i].itineraries[0].segments[z].arrival.iataCode, null, 4) + ("\n");
+            flightArrivalTerminal = JSON.stringify(html[i].itineraries[0].segments[z].arrival.terminal, null, 4) + ("\n");
+            flightArrivalAt = JSON.stringify(html[i].itineraries[0].segments[z].arrival.at, null, 4) + ("\n") + ("\n");
+            document.getElementById("flight-title-departure-span-" + i).appendChild(flightResultDepartureSpan);
+            document.getElementById("flight-title-departure-span-" + i).appendChild(flightResultDepartureTerminalSpan);
+            document.getElementById("flight-title-departure-span-" + i).appendChild(flightResultDepartureAtSpan);
+            document.getElementById("flight-title-arrival-span-" + i).appendChild(flightResultArrivalSpan);
+            document.getElementById("flight-title-arrival-span-" + i).appendChild(flightResultTerminalArrivalSpan);
+            document.getElementById("flight-title-arrival-span-" + i).appendChild(flightResultArrivalAtSpan);
+           
+            flightResultDepartureSpan.innerText = "Iata Code: " + flightDepartureIata;
+            flightResultDepartureTerminalSpan.innerText = "Terminal: " + flightDepartureTerminal;
+            flightResultDepartureAtSpan.innerText = "Departure At: " + flightDepartureAt.replace(/T/g, " ")
+            flightResultArrivalSpan.innerText = "Iata Code: " + flightArrival;
+            flightResultTerminalArrivalSpan.innerText = "Terminal: " + flightArrivalTerminal;
+            flightResultArrivalAtSpan.innerText = "Arrival At:" + flightArrivalAt.replace(/T/g, " ");
+
+        }
+
+
+
+        document.getElementById("payButton-span-" + i).style.position = "relative";
+        document.getElementById("payButton-span-" + i).style.top = "160px";
+        document.getElementById("payButton-span-" + i).style.right = "10px";
+        document.getElementById("price-tag-" + i).style.position = "relative";
+        document.getElementById("price-tag-" + i).style.top = "160px";
+        document.getElementById("price-tag-" + i).style.right = "20px";
+
+
+
+
+
+
+        document.getElementById("flight-listing-" + i).style.border = "5px solid black"
+        document.getElementById("flight-listing-" + i).style.width = "900px"
+
+        if (html[i].itineraries[0].segments.length >= 3) {
+            document.getElementById("flight-listing-" + i).style.height = "550px"
+            document.getElementById("payButton-span-" + i).style.position = "relative";
+            document.getElementById("payButton-span-" + i).style.top = "260px";
+            document.getElementById("payButton-span-" + i).style.right = "10px";
+            document.getElementById("price-tag-" + i).style.position = "relative";
+            document.getElementById("price-tag-" + i).style.top = "260px";
+        } else {
+            document.getElementById("flight-listing-" + i).style.height = "450px"
+        }
+
+
+        flightListingBox.insertAdjacentHTML("afterend", "<br>")
+        flightListingBox.insertAdjacentHTML("afterend", "<br>")
+
+        flightTitleDiv.insertAdjacentHTML("afterend", "<br>")
+        flightTitleDiv.insertAdjacentHTML("afterend", "<br>")
+   
+
+
+        let getPayButtonCount = document.getElementById(`payButton-span-${i}`);
+        getPayButtonCount.addEventListener("click", function () {
+            console.log("Sending to backend " + i);
+
+
+            async function getFlightPricingNumber() {
+                const baseUrl = "http://localhost:5000/gettingPricingFlightNumber"
+
+
+                const postDate = await fetch(baseUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify({
+                        priceNumber: i
+                    })
+                });
+
+            }
+            getFlightPricingNumber()
+
+            for (let i = 0; i < listNumber; i++) {
+                document.getElementById(`payButton-${i}`).disabled = true
+            }
+
+            async function moveToItinierary() {
+             
+                const baseUrl = "http://localhost:5000/sendDataToItinirary"
+              
+                  
+                    const res = await fetch(baseUrl, {
+                        method: "GET"
+                    });
+                   
+                    function windowRedirect() {
+                        
+                        window.location.href = "http://localhost:5000/sendDataToItinirary"
+                   
+
+                    }
+                    const myTimeout = setTimeout(windowRedirect, 10000);
+
+              
+
+            }
+            moveToItinierary()
+
+        })
+
+
+        let getPayButtonForModal = document.getElementById("payButton-" + i);
+        let modalAttr1 = document.createAttribute("data-bs-toggle");
+        modalAttr1.value = "modal";
+        getPayButtonForModal.setAttributeNode(modalAttr1);
+        let getPayButtonForModal2 = document.getElementById("payButton-" + i);
+        let modalAttr2 = document.createAttribute("data-bs-target");
+        modalAttr2.value = "#exampleModal";
+        getPayButtonForModal2.setAttributeNode(modalAttr2);
+    }
+ 
+    const loadMoreButton = document.createElement('button');
+    document.getElementById("flightDataDiv").append(loadMoreButton);
+    loadMoreButton.id = "load-more";
+    loadMoreButton.classList.add("btn")
+    loadMoreButton.classList.add("btn-primary")
+    loadMoreButton.innerText = "Load More"
+
+    document.getElementById("load-more").addEventListener("click", function () {
+        function loadItems() {
+            listNumber += 10
+            console.log(listNumber);
+            document.getElementById("flightDataDiv").innerHTML = ""
+            getInfo();
+        }
+
+        loadItems();
+    });
+
+}
+
+
+getInfo();
+
+
+
