@@ -1,4 +1,4 @@
-# globallinktravel
+# Freedom-flights
 This is a travel agency with amadeus with a regisitration system and login system.
 In Mysql the phoneNumber column takes numbers as an int thats why it may throw errors to fix it change phoneNumber column from into to varchar(25), that should give you enough space to store numbers.
 
