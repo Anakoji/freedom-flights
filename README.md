@@ -18,3 +18,11 @@ Do an npm install
 and to run the script
 
 do npm run dev
+
+To view other routes the project has head over to the router file and click any file in the router folder and look for this. 
+
+router.get("/aboutUs", (req, res, next) =>{
+    res.sendFile( `/home/Jaskaran/freedom-flights/public/about-us.html`);
+});
+
+And change the absolute path to your path.
