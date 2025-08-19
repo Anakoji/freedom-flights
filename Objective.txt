@@ -1,0 +1,13 @@
+## 🛫 Freedom-Flights: Grounded but Never Silenced
+
+This wasn’t just a flight search app. It was a middle finger to bloated systems, a coded rebellion against the gatekeepers of data and design. Freedom-Flights was built not to serve, but to liberate—mock flights with, real flights, and all. It dared to ask: *What if we built for freedom, not profit? What if learning was the destination, not just the journey?*
+
+Jetpack Compose, Room, Kotlin Flow—these weren’t just tools. They were weapons. And every commit was a manifesto. No ads. No tracking. No compromise.
+
+Now, as we archive this project, we don’t mourn. We celebrate. Because Freedom-Flights did what few projects dare: it flew without permission.
+
+So here’s to the rebels who forked it, broke it, rebuilt it. To the learners who saw past the UI and into the soul of the code. To the dreamers who still believe in open skies and open source.
+
+This repo may be grounded, but its spirit? Untethered.
+
+✊ *Long live the code. Long live the flight.*
