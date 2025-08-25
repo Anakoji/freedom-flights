@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/contactUs", (req, res, next) =>{
-    res.sendFile( `/home/Jaskaran/globallinktravel/public/contact-us.html`);
+    res.sendFile( `/home/Jaskaran/freedom-flights/public/contact-us.html`);
     // res.send("This is the hotels page request");
 });
 

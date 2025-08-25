@@ -65,18 +65,42 @@
       <div class="register-back-ground-box">
         <br />
         <br />
-        <br />
+     
         <form>
           <div class="input-width">
             <div class="input-group mb-3">
               <input
                 type="text"
                 class="form-control"
-                placeholder="Username"
+                placeholder="User Name"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 autocomplete="off"
                 id="username"
+              />
+            </div>
+
+             <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="First Name"
+                aria-label="First Name"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                id="firstname"
+              />
+            </div>
+
+             <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Last Name"
+                aria-label="last Name"
+                aria-describedby="basic-addon1"
+                autocomplete="off"
+                id="lastname"
               />
             </div>
             <span id="usernameError" style="color: red"></span>
@@ -146,6 +170,24 @@
               />
             </div>
             <span id="addressError" style="color: red"></span>
+            <div>
+              <label>Gender:</label>
+              <br>
+              <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="gender" id="radioMale" value="Male">
+  <label class="form-check-label" for="radioMale">Male</label>
+</div>
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="gender" id="radioFemale" value="Female">
+  <label class="form-check-label" for="radioFemale">Female</label>
+</div>
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="gender" id="radioOther" value="Other">
+  <label class="form-check-label" for="radioOther">Other</label>
+</div>
+            </div>
             <div>
               <span>Date of Birth: </span>
               <br />

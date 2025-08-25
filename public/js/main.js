@@ -83,9 +83,9 @@ async function getIataCitieOrigin() {
   console.log("Origin Promise");
   for (let i = 0; i < loadedCities.length; i++) {
 
-    let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+    let citieFinal = loadedCities[i].name + ", " + loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
 
-    if (loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata) {
+    if (loadedCities[i].name && loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata) {
       countries.push(citieFinal);
       jsonData = citieFinal;
 
@@ -166,9 +166,9 @@ async function getIataCitieDest() {
 
   // console.log("Destination Promise");
   for (let i = 0; i < loadedCities.length; i++) {
-    let citieFinal = loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
+    let citieFinal =  loadedCities[i].name + ", " + loadedCities[i].city + ", " + loadedCities[i].country + ", " + loadedCities[i].iata
 
-    if (loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata) {
+    if (loadedCities[i].name && loadedCities[i].city && loadedCities[i].country && loadedCities[i].iata) {
       countries.push(citieFinal);
       jsonData = citieFinal;
 

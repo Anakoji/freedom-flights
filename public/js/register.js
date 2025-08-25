@@ -83,9 +83,15 @@ function populateCountrySelect() {
     });
 }
 
+
+
 async function sendRegisterDataToBackend(baseUrl) {
   const getUsername = document.getElementById("username");
   const sendUsername = getUsername.value;
+  const getFirstname = document.getElementById("firstname");
+  const sendFirstname = getFirstname.value;
+  const getLastName = document.getElementById("lastname");
+  const sendLastName = getLastName.value;
   const getEmail = document.getElementById("email");
   const sendEmail = getEmail.value;
   const getPassword = document.getElementById("password");
@@ -104,7 +110,19 @@ async function sendRegisterDataToBackend(baseUrl) {
   const selectedMonth = monthSelect.value;
   const birthYear = document.getElementById('birth-year');
   const selectedBirthYear = birthYear.value;
+const male = document.getElementById('radioMale');
+const female = document.getElementById('radioFemale');
+const other = document.getElementById('radioOther');
 
+let selectedGender = null;
+
+if (male.checked) {
+  selectedGender = male.value;
+} else if (female.checked) {
+  selectedGender = female.value;
+} else if (other.checked) {
+  selectedGender = other.value;
+}
 
 
 console.log(selectedCountry);
@@ -129,11 +147,14 @@ console.log(selectedCountry);
       },
       body: JSON.stringify({
         username: sendUsername,
+        firstname: sendFirstname,
+        lastname:sendLastName,
         email: sendEmail,
         password: sendPassword,
         confirmPassword: sendConfirmPassword,
         phoneNumber: sendPhoneNumber,
         address: sendAddress,
+        gender: selectedGender,
         country: selectedCountry,
         day: daySelected,
         month: selectedMonth,

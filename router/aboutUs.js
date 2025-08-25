@@ -5,8 +5,7 @@ const router = express.Router();
 // router.use(express.static(path.join( __dirname)));
 
 router.get("/aboutUs", (req, res, next) =>{
-    res.sendFile( `/home/Jaskaran/globallinktravel/public/about-us.html`);
-    // console.log( `D:\\globallinktravel\\public\\cars` );
+    res.sendFile( `/home/Jaskaran/freedom-flights/public/about-us.html`);
 });
 
 module.exports = router;

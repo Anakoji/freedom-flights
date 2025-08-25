@@ -3,7 +3,13 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000; 
 const mysql = require('mysql2/promise');
+const multer = require("multer");
+const fs = require('fs/promises');
+const cookieParser = require("cookie-parser");
+ const jwt = require("jsonwebtoken");
+const upload = multer({ dest: "uploads/" });
 const carsRoute = require("./router/cars");
+const user_settings = require("./router/user_settings");
 const hotelsRoute = require("./router/hotels");
 const aboutUsRoute = require("./router/aboutUs");
 const contactUsRoute = require("./router/contactUs");
@@ -28,7 +34,7 @@ var amadeus = new Amadeus({
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static('public'))
 app.use(express.json());
-
+app.use(cookieParser());
 // app.post("/flightCreateOrder", async function (req, res) {
 //   res.json(req.body);
 
@@ -130,18 +136,86 @@ app.get("/sendDataToItinirary", (req, res) =>{
   // res.redirect("/itinirary");
 });
 
-app.get("/itinirary", (req, res) =>{
-  const data = [];
+// app.get("/itinirary", (req, res) =>{
+//   const data = [];
   
-  data.push(app.get('priceValidated'))
+//   data.push(app.get('priceValidated'))
 
-  console.log("Itinirary Route");
+//   console.log("Itinirary Route");
 
-  res.send(data);
+//   res.send(data);
 
  
+// });
+
+// app.get("/itinirary", (req, res) => {
+//   const flightData = app.get("priceValidated");
+
+//   if (!flightData) {
+//     return res.status(404).send("No itinerary data found.");
+//   }
+
+//   console.log("Itinerary Route Accessed");
+//   res.send(flightData);
+// });
+
+app.get("/itinirary-data", (req, res) => {
+  const flightData = app.get("priceValidated");
+
+  if (!flightData) {
+    return res.status(404).json({ error: "No itinerary data found." });
+  }
+
+  res.json(flightData); // ✅ sends valid JSON
 });
 
+app.get("/itinirary", (req, res) => {
+  res.sendFile(__dirname + "/public/itinierary.html");
+});
+app.get("/itinirary", (req, res) => {
+  const flightData = app.get("priceValidated");
+
+  if (!flightData) {
+    return res.status(404).send("No itinerary data found.");
+  }
+
+  console.log("Itinerary Route Accessed");
+  res.send([flightData]); // ✅ Wrap in array
+});
+
+app.post("/api/sendDataToItinirary", (req, res) => {
+  const selectedFlight = req.body;
+
+  // Store the selected flight in app memory
+  app.set("priceValidated", selectedFlight);
+
+  console.log("Flight data stored for itinerary:", selectedFlight);
+  res.json({ message: "Flight data stored successfully" });
+});
+
+app.post("/pricingRoute", async (req, res) => {
+  console.log("Received flight data for pricing");
+
+  try {
+    const flightOffer = req.body; // This is the flight data sent from frontend
+
+    const response = await amadeus.shopping.flightOffers.pricing.post(
+      JSON.stringify({
+        data: {
+          type: "flight-offers-pricing",
+          flightOffers: [flightOffer],
+        },
+      }),
+      { include: "credit-card-fees,detailed-fare-rules" }
+    );
+
+    console.log("Pricing response:", response);
+    res.json(response); // Send back the validated pricing
+  } catch (error) {
+    console.error("Pricing error:", error);
+    res.status(500).send("Failed to validate pricing");
+  }
+});
 
 
 app.get("/flights", (req, res, next) =>{
@@ -151,7 +225,7 @@ app.get("/flights", (req, res, next) =>{
         originLocationCode: app.get("iataOrigin"),
         destinationLocationCode: app.get("iataDestination"),
         departureDate: app.get("destinationDate"),
-        // returnDate: app.get("returnDate"),
+        returnDate: app.get("returnDate"),
         travelClass: app.get("typeOfCabin"),
         adults: app.get("numberOfAdults"),
         currencyCode : "USD"
@@ -180,32 +254,32 @@ app.get("/flights", (req, res, next) =>{
 
 
 
-app.get("/pricingRoute", (req, res) =>{
-  console.log("Test");
- async function main() {
-  try {
-    // Confirm availability and price from MAD to ATH in summer 2024
-    const flightOffersResponse = app.get("priceValidated");
+// app.get("/pricingRoute", (req, res) =>{
+//   console.log("Test");
+//  async function main() {
+//   try {
+//     // Confirm availability and price from MAD to ATH in summer 2024
+//     const flightOffersResponse = app.get("priceValidated");
 
-    const response = await amadeus.shopping.flightOffers.pricing.post(
-      JSON.stringify({
-        data: {
-          type: "flight-offers-pricing",
-          flightOffers: [flightOffersResponse],
-        },
-      },
-      { include: "credit-card-fees,detailed-fare-rules" }
-    ));
-    console.log(response);
-    res.send(response)
-  } catch (error) {
-    console.error(error);
-    console.log("The Error is right here!");
-  }
-}
+//     const response = await amadeus.shopping.flightOffers.pricing.post(
+//       JSON.stringify({
+//         data: {
+//           type: "flight-offers-pricing",
+//           flightOffers: [flightOffersResponse],
+//         },
+//       },
+//       { include: "credit-card-fees,detailed-fare-rules" }
+//     ));
+//     console.log(response);
+//     res.send(response)
+//   } catch (error) {
+//     console.error(error);
+//     console.log("The Error is right here!");
+//   }
+// }
 
-main()
-});
+// main()
+// });
 
 app.get("/getHtmlFlights", (req, res) =>{
 
@@ -221,32 +295,36 @@ app.get("/htmlFlights", (req, res) =>{
 });
 
 app.post('/register', async (req, res) => {
-  let { username, email ,password, confirmPassword, phoneNumber, address, day, month, birthYear, country } = req.body;
+  let { username, firstname, lastname, email ,password, confirmPassword, phoneNumber, address, gender, day, month, birthYear, country } = req.body;
 
  // let connection;
-
+console.log( "First and last name: "+ firstname + " "+ lastname);
 try{
   const usernameError = validateUsername(username);
+  const checkFirstName = validateFirstName(firstname);
+  const checkLastName = validateLastName(lastname);
   const emailError = validateEmail(email);
   const passwordError = validatePassword(password)
   const confirmPasswordError = validateConfirmPassword(password, confirmPassword)
   const phoneError = validatePhoneNumber(phoneNumber)
   const addressError = validateAddress(address)
+  const checkGender = validateGender(gender);
   const dob = dobVerification(day, month, birthYear)
   const countryCheck = countryValidate(country)
   const checkValidDate = validateDateComponents(day, month, birthYear);
-  const errors = usernameError || emailError || passwordError || confirmPasswordError || phoneError || addressError || dob || countryCheck || checkValidDate ;
+  const errors = usernameError|| checkFirstName || checkLastName || emailError || passwordError || confirmPasswordError || phoneError || addressError || checkGender || dob || countryCheck || checkValidDate ;
 
 
   if (errors) {
     
-    res.status(400).json({ error: errors });
+    return res.status(400).json({ error: errors });
   
   }else{
     // res.status(200).json({ message: 'User registered successfully!' });
-    await insertIntoDatabase(username, email, password, phoneNumber, address, day, month, birthYear, country);
+    await insertIntoDatabase(username, firstname, lastname, email, password, phoneNumber, address, gender, day, month, birthYear, country, res);
   }
 }catch(error){
+  console.log("Regisitration error: ", error);
   if(!res.headersSent){
 
     res.status(500).json({ error: "Internal Error Please try again later!" });
@@ -254,7 +332,7 @@ try{
 }
 
 
-async function insertIntoDatabase(username, email, password, phoneNumber, address, day, month, birthYear, country) {
+async function insertIntoDatabase(username, firstname, lastname, email, password, phoneNumber, address, gender, day, month, birthYear, country, res) {
   let connection;
 
   try {
@@ -263,10 +341,10 @@ async function insertIntoDatabase(username, email, password, phoneNumber, addres
     const birthday = `${birthYear}-${paddedMonth}-${paddedDay}`;
 
     connection = await mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'Lol123Admin!',
-      database: 'registration'
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME
     });
 
     console.log('Connected to MySQL!');
@@ -290,23 +368,59 @@ async function insertIntoDatabase(username, email, password, phoneNumber, addres
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const sql = `
-      INSERT INTO users (
-        username, email, password, phoneNumber, address, birthday, country
-      ) VALUES (?, ?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?)
-    `;
+const sql = `
+  INSERT INTO users (
+    username, firstname, lastname, email, password, phoneNumber, address, gender, birthday, country
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?)
+`;
 
     const values = [
       sanitized(username),
+      sanitized(firstname),
+      sanitized(lastname),
       sanitized(email),
       sanitized(hashedPassword),
       sanitized(phoneNumber),
       sanitized(address),
+      sanitized(gender),
       sanitized(birthday),
       sanitized(country)
     ];
 
-    await connection.execute(sql, values);
+    // await connection.execute(sql, values);
+
+const [result] = await connection.execute(sql, values);
+const userId = result.insertId;
+
+await connection.execute(`
+  INSERT INTO user_settings (user_id, theme, notifications, language, avatar)
+  VALUES (?, 'light', true, 'en', '/images/user.png')
+`, [userId]);
+
+const userFolder = path.join(__dirname, 'user_data', username);
+
+try {
+  // Create user folder if it doesn't exist
+  await fs.mkdir(userFolder, { recursive: true });
+
+  // Define default settings
+  const defaultSettings = {
+    theme: "light",
+    notifications: true,
+    language: "en",
+    avatar: "./images/user.png"
+  };
+
+  // Write settings to file
+  const settingsPath = path.join(userFolder, 'user_settings.json');
+  await fs.writeFile(settingsPath, JSON.stringify(defaultSettings, null, 2));
+
+  console.log(`✅ Settings file created for ${username}`);
+} catch (fileErr) {
+  console.error(`⚠️ Failed to create settings file for ${username}:`, fileErr);
+}
+
+
 
     return res.status(200).json({ message: 'User registered successfully, redirecting now!' });
 
@@ -334,6 +448,20 @@ async function insertIntoDatabase(username, email, password, phoneNumber, addres
     return "Username can only include letters, numbers, and underscores.";
   }
   return null; // No errors!
+}
+
+function validateFirstName(firstname) {
+  if (!firstname || firstname.trim() === "") {
+    return "First name is required.";
+  }
+  return null;
+}
+
+function validateLastName(lastname) {
+  if (!lastname || lastname.trim() === "") {
+    return "Last name is required.";
+  }
+  return null;
 }
 
 function validateEmail(email) {
@@ -383,6 +511,21 @@ function validateAddress(address) {
   }
   return null;
 }
+
+function validateGender(gender) {
+  const validOptions = ["Male", "Female", "Other"];
+
+  if (!gender || gender.trim() === "") {
+    return "Gender is required.";
+  }
+
+  if (!validOptions.includes(gender)) {
+    return "Invalid gender selection.";
+  }
+
+  return null;
+}
+
 function dobVerification(day, month, birthYear) {
   const today = new Date();
   const birthDate = new Date(birthYear, month - 1, day); // month is zero-indexed
@@ -461,53 +604,371 @@ app.get('/mysqlError', (req, res) => {
 
 
 
-app.post('/login', (req, res) => {
+const cors = require("cors");
 
+app.use(cors({
+  origin: "http://localhost:5000",
+  credentials: true,
+}));
+
+app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
-  const mysql = require('mysql2');
-
+const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Lol123Admin!',
-  database: 'registration'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
-console.log(typeof db);       // should say 'object'
-console.log(typeof db.query); // should say 'function'
 
-  // Fetch the stored hashed password from the database
-  const sql = 'SELECT password FROM users WHERE username = ?';
+  const sql = `
+    SELECT u.password, s.avatar
+    FROM users u
+    JOIN user_settings s ON u.id = s.user_id
+    WHERE u.username = ?
+  `;
+
   db.query(sql, [username], (err, results) => {
     if (err) {
-      console.error('Database error:', err);
-      return res.status(500).json({ error: 'Internal server error' });
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Internal server error" });
     }
 
     if (results.length === 0) {
-      return res.status(401).json({ error: 'Error: Please check your username or password' });
+      return res.status(401).json({ error: "Error: Please check your username or password" });
     }
 
     const storedHash = results[0].password;
+    const avatar = results[0].avatar;
 
-    // Compare entered password with stored hash
     bcrypt.compare(password, storedHash, (err, isMatch) => {
       if (err) {
-        console.error('Bcrypt error:', err);
-        return res.status(500).json({ error: 'Error validating password' });
+        console.error("Bcrypt error:", err);
+        return res.status(500).json({ error: "Error validating password" });
       }
 
-      if (isMatch) {
-        console.log('✅ Password is valid!');
-        return res.status(200).json({ message: 'Login successful!' });
-      } else {
-        console.log('❌ Incorrect password.');
-        return res.status(401).json({ error: 'Invalid credentials' });
+      if (!isMatch) {
+        console.log("❌ Incorrect password.");
+        return res.status(401).json({ error: "Invalid credentials" });
       }
+
+      console.log("✅ Password is valid!");
+      db.end();
+
+      // 🔐 Generate JWT
+      const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+      // 🍪 Set secure cookie
+      res.cookie("authToken", token, {
+        httpOnly: true,
+        // secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+        sameSite: "Strict",
+        path:"/",
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+      });
+console.log("✅ Setting authToken cookie:", token);
+      // 🎯 Send response
+      return res.status(200).json({
+        message: "Login successful!",
+        username,
+        avatar,
+      });
     });
   });
 });
+
+
+// app.post("/logout", (req, res) => {
+//   console.log("🔓 Logout request received");
+
+// const isProduction = process.env.NODE_ENV === "production";
+
+// res.cookie("authToken", "", {
+//   httpOnly: true,
+//   secure: isProduction, // false in dev
+//   sameSite: isProduction ? "Strict" : "Lax", // Lax in dev
+//   path: "/",
+//   expires: new Date(0),
+//   maxAge: 0,
+// });
+
+//   // Step 2: Explicitly clear the cookie
+//   res.clearCookie("authToken", {
+//     httpOnly: true,
+//     secure: isProduction,
+//     sameSite: isProduction ? "Strict" : "Lax",
+//     path: "/",
+//   });
+// console.log(res.getHeaders());
+//   return res.status(200).json({ message: "Logged out" });
+// });
+
+
+app.post("/logout", (req, res) => {
+  // Clear the real cookie
+  res.clearCookie("authToken", {
+    httpOnly: true,
+    sameSite: "Lax",
+    path: "/",
+  });
+  
+  // Set a debug cookie for visibility
+  res.cookie("debugToken", "", {
+    httpOnly: false, // So you can see it in DevTools
+    sameSite: "Lax",
+    path: "/",
+    expires: new Date(0), // Expire immediately
+  });
+  
+  res.status(200).json({ message: "Logged out" });
+  
+  console.log("🍪 Incoming cookies:", req.cookies);
+  console.log(res.getHeaders());
+});
+
+// app.get("/user_settings", (req, res) =>{
+ 
+ 
+// });
+
+
+
+const libphonenumber = require('google-libphonenumber');
+const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
+
+
+app.post("/submit-profile", upload.single("profileImage"), (req, res) => {
+  const data = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    address: req.body.address,
+    country: req.body.country,
+    gender: req.body.gender,
+    birthDay: req.body.birthDay,
+    birthMonth: req.body.month,
+    birthYear: req.body.birthYear,
+    image: req.file, // contains uploaded file info
+  };
+
+ 
+ 
+const selected = JSON.parse(req.body.country); // assuming body parser is enabled
+const dialCode = selected.dial_code;
+const countryCode = selected.code;
+const nameValid = validateName(data.firstName);
+const lastNameValid = validateLastName(data.lastName);
+const emailValid = validateEmail(data.email);
+const phoneNumberValid = validatePhoneNumber(data.phoneNumber, countryCode);
+const addressValid = validateAddress(data.address);
+const countryValid = validateCountrySelection(data.country);
+const genderValid = validateGender(data.gender);
+const ageValid = validateAge(req.body.birthDay, req.body.month, req.body.birthYear);
+
+
+if(!nameValid.valid){
+  return res.status(400).json({error: nameValid.message})
+}
+
+if(!lastNameValid.valid){
+  return res.status(400).json({lastNameError: lastNameValid.message})
+}
+
+if(!emailValid.valid){
+  return res.status(400).json({emailError: emailValid.message})
+}
+
+if(!phoneNumberValid.valid){
+  return res.status(400).json({phoneNumValid: phoneNumberValid.message})
+}
+
+if(!addressValid.valid){
+  return res.status(400).json({addrError: addressValid.message})
+}
+
+if (!countryValid.valid) {
+  return res.status(400).json({ countryError: countryValid.message });
+}
+if (!genderValid.valid) {
+  return res.status(400).json({ genderError: genderValid.message });
+}
+
+if (!ageValid.valid) {
+  return res.status(400).json({ ageError: ageValid.message });
+}
+
+function validateName(firstName) {
+  if (typeof firstName !== 'string') {
+    return { valid: false, message: "Name must be a string." };
+  }
+
+  const trimmed = firstName.trim();
+
+  if (trimmed.length < 2) {
+    return { valid: false, message: "Name must be at least 2 characters long." };
+  }
+
+  const regex = /^[A-Za-z\s\-]+$/;
+
+  if (!regex.test(trimmed)) {
+    return { valid: false, message: "Name can only contain letters, spaces, and hyphens." };
+  }
+
+  return { valid: true };
+}
+
+function validateLastName(lastName) {
+  if (typeof lastName !== 'string') {
+    return { valid: false, message: "Last name must be a string." };
+  }
+
+  const trimmed = lastName.trim();
+
+  if (trimmed.length < 2) {
+    return { valid: false, message: "Last name must be at least 2 characters long." };
+  }
+
+  const regex = /^[A-Za-z\s\-]+$/;
+
+  if (!regex.test(trimmed)) {
+    return { valid: false, message: "Last name can only contain letters, spaces, and hyphens." };
+  }
+
+  return { valid: true };
+}
+
+function validateEmail(email) {
+  if (typeof email !== 'string') {
+    return { valid: false, message: "Email must be a string." };
+  }
+
+  const trimmed = email.trim();
+
+  // Basic but effective email regex
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!regex.test(trimmed)) {
+    return { valid: false, message: "Please enter a valid email address." };
+  }
+
+  return { valid: true };
+}
+
+
+console.log("Dial Code & Country Code: " + dialCode + " " + countryCode);
+
+
+function validatePhoneNumber(phone, regionCode) {
+  if (typeof phone !== 'string') {
+    return { valid: false, message: "Phone number must be a string." };
+  }
+
+  const trimmed = phone.trim();
+  const regex = /^[\d\s\-\+\(\)]+$/;
+  const digitCount = trimmed.replace(/\D/g, "").length;
+
+  if (!regex.test(trimmed)) {
+    return { valid: false, message: "Phone number contains invalid characters." };
+  }
+
+  if (digitCount < 10) {
+    return { valid: false, message: "Phone number must contain at least 10 digits." };
+  }
+
+  try {
+    const parsedNumber = phoneUtil.parseAndKeepRawInput(trimmed, regionCode);
+    const isValid = phoneUtil.isValidNumber(parsedNumber);
+
+    if (!isValid) {
+      return { valid: false, message: "Phone number is not valid for region: " + regionCode };
+    }
+
+    return { valid: true };
+  } catch (error) {
+    return { valid: false, message: "Phone number could not be parsed: " + error.message };
+  }
+}
+
+function validateAddress(addressInput) {
+  if (typeof addressInput !== 'string' || addressInput.trim().length < 2) {
+    return { valid: false, message: "Address must be at least 2 characters long." };
+  }
+
+  return { valid: true };
+}
+
+function validateCountrySelection(countryRaw) {
+  if (typeof countryRaw !== "string" || !countryRaw.trim()) {
+    return { valid: false, message: "Please select a valid country." };
+  }
+
+  if (countryRaw === "Select your country" || countryRaw === "undefined" || countryRaw === "null") {
+    return { valid: false, message: "Please select a valid country." };
+  }
+
+  return { valid: true, data: { code: countryRaw } };
+}
+
+function validateGender(genderInput, allowed = ["Male", "Female", "Other"]) {
+  if (genderInput == null) {
+    return { valid: false, message: "Please select at least one gender option." };
+  }
+
+  const values = Array.isArray(genderInput) ? genderInput : [genderInput];
+
+  const cleaned = values
+    .filter(v => typeof v === "string")
+    .map(v => v.trim())
+    .filter(v => v.length > 0);
+
+  if (cleaned.length === 0) {
+    return { valid: false, message: "Please select at least one gender option." };
+  }
+
+  const allAllowed = cleaned.every(v => allowed.includes(v));
+  if (!allAllowed) {
+    return { valid: false, message: "Invalid gender selection." };
+  }
+
+  return { valid: true };
+}
+
+function validateAge(birthDay, birthMonth, birthYear) {
+  const birthDate = new Date(birthYear, birthMonth - 1, birthDay); // month is 0-indexed
+
+  if (isNaN(birthDate.getTime())) {
+    return { valid: false, message: "Invalid birth date." };
+  }
+
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  const d = today.getDate() - birthDate.getDate();
+
+  if (m < 0 || (m === 0 && d < 0)) {
+    age--;
+  }
+
+  if (age < 18) {
+    return { valid: false, message: "You must be at least 18 years old." };
+  }
+
+  return { valid: true };
+}
+
+});
+
+
+
+app.get("/logout", (req, res) => {
+  res.send("Use POST to log out.");
+});
+
+console.log("NODE_ENV:", process.env.NODE_ENV);
+
 
 
 app.use("/", carsRoute);
@@ -519,6 +980,7 @@ app.use("/", employmentRoute);
 app.use("/", errorRoute);
 app.use("/", loginRoute);
 app.use("/", registerRoute);
+app.use("/", user_settings);
 
 app.listen(PORT, () =>{
     console.log(`Example app listening on port ${PORT}`);
