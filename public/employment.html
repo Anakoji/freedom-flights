@@ -4,34 +4,73 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Employment – Global Link Travel</title>
+    <title>Employment – Freedom Flights</title>
+    <link rel="stylesheet" href="./css/employment.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Global Link Travel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
-                aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarsExample06">
-                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-                    <li class="nav-item"><a class="nav-link active" href="/">Flights</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/hotels">Hotels</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/cars">Cars</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/aboutUs">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contactUs">Contact Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/employment">We're Hiring!</a></li>
-                </ul>
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" id="hide-label" href="/">Freedom Flights</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
+        aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample06">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Flights</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/hotels">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cars">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutUs">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactUs">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employment">We're Hiring!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login" id="loggedInOrOut"></a>
+          </li>
+        </ul>
+
+      </div>
+      
+      <div style="display: flex;">
+      
+
+            <div>
+                
+                <span class="username"></span>
             </div>
+            <div>
+                
+                <center> 
+   <div id="avatarContainer" class="avatar-Box" style="display: none;">
+  <img id="userAvatar" src="./images/user.png" alt="User avatar" width="30" height="35">
+</div>
+                    
+                </center>
+            </div>
+     
         </div>
-    </nav>
+    </div>
+    
+  </nav>
 
     <div class="container py-5">
         <h1 class="mb-4 text-primary">Join Our Team</h1>
-        <p>Explore exciting career opportunities at Global Link Travel. Click on a role to learn more.</p>
+        <p>Explore exciting career opportunities at Freedom Flights. Click on a role to learn more.</p>
 
         <div class="list-group">
             <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
@@ -265,9 +304,9 @@
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
             </ul>
-            <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+            <p class="text-center text-muted">© 2025 Freedom Flights</p>
         </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/employment.js"></script>
 </html>

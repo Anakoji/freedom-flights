@@ -603,6 +603,26 @@ app.get('/mysqlError', (req, res) => {
 });
 
 
+function blockIfAuthenticated(req, res, next) {
+  const token = req.cookies.authToken;
+
+  if (!token) {
+    return next(); // ✅ No token, proceed to page
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    // 🔐 Token is valid — block access
+    return res.status(403).json({ error: "You are already logged in. Access denied." });
+  } catch (err) {
+    // 🧨 Invalid token — let them through
+    return next();
+  }
+}
+
+app.get("/login", blockIfAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
 
 const cors = require("cors");
 
@@ -658,7 +678,7 @@ const db = mysql.createConnection({
       db.end();
 
       // 🔐 Generate JWT
-      const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1d" });
+      const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "90d" });
 
       // 🍪 Set secure cookie
       res.cookie("authToken", token, {
@@ -666,7 +686,7 @@ const db = mysql.createConnection({
         // secure: process.env.NODE_ENV === "production", // HTTPS only in prod
         sameSite: "Strict",
         path:"/",
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
       });
 console.log("✅ Setting authToken cookie:", token);
       // 🎯 Send response
@@ -675,6 +695,7 @@ console.log("✅ Setting authToken cookie:", token);
         username,
         avatar,
       });
+      
     });
   });
 });

@@ -26,3 +26,64 @@
     ul {
       padding-left: 20px;
     }
+
+      .rectangle {
+      width: 50%; /* Set the width */
+      height: 400px; /* Set the height */
+        background: linear-gradient(
+    135deg,
+    #d3d3d3 0%,
+    #f0f0f0 25%,
+    #d3d3d3 50%,
+    #a9a9a9 75%,
+    #d3d3d3 100%
+  );
+  background-size: 200% 200%;
+  animation: shine 4s linear infinite;
+ /* Set the background color */
+      border: 5px solid black; /* Optional: Add a border */
+    }
+    
+
+
+  .loginRectangle {
+      width:35%; 
+    }
+
+    
+.custom-width {
+  width: 20px; /* Or any value like 50%, 20rem, etc. */
+}
+
+
+.username{
+  color: white;
+  position: relative;
+  top: 15px;
+  right: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  #hide-label{
+    display: none;
+  }
+}
+
+
+
+.avatar-Box{
+  height: 40px;
+  width: 40px;
+  color: red;
+  border: 2px solid black;
+  background-color: white;
+  position: relative;
+  top: 3px;
+}
+.avatar-Box2{
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+  background-color: white;
+
+}

@@ -1,0 +1,54 @@
+   body {
+     
+      background-color: #f9f9f9;
+    }
+    .itinerary-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin: auto;
+      max-width: 1000px;
+    }
+    .airline-logo {
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    .btn-confirm {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+
+
+.username{
+  color: white;
+  position: relative;
+  top: 15px;
+  right: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  #hide-label{
+    display: none;
+  }
+}
+
+.avatar-Box{
+  height: 40px;
+  width: 40px;
+  color: red;
+  border: 2px solid black;
+  background-color: white;
+  position: relative;
+  top: 3px;
+}
+.avatar-Box2{
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+  background-color: white;
+
+}

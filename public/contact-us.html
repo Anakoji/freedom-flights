@@ -5,80 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us – Global Link Travel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f8fc;
-      color: #333;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-    h1 {
-      color: #0077b6;
-      font-size: 2.5em;
-      margin-bottom: 20px;
-    }
-    p {
-      margin-bottom: 10px;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      resize: vertical;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background-color: #0077b6;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #005f94;
-    }
-    .info {
-      margin-top: 30px;
-      background-color: #e6f1fc;
-      padding: 20px;
-      border-radius: 6px;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/contact-us.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Global Link Travel</a>
+      <a class="navbar-brand" id="hide-label" href="/">Freedom Flights</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
         aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarsExample06">
         <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-          <li class="nav-item"><a class="nav-link active" href="/">Flights</a></li>
-          <li class="nav-item"><a class="nav-link" href="/hotels">Hotels</a></li>
-          <li class="nav-item"><a class="nav-link" href="/cars">Cars</a></li>
-          <li class="nav-item"><a class="nav-link" href="/aboutUs">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contactUs">Contact Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="/employment">We're Hiring!</a></li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Flights</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/hotels">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cars">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutUs">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactUs">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employment">We're Hiring!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login" id="loggedInOrOut"></a>
+          </li>
         </ul>
+
       </div>
+      
+      <div style="display: flex;">
+      
+
+            <div>
+                
+                <span class="username"></span>
+            </div>
+            <div>
+                
+                <center> 
+   <div id="avatarContainer" class="avatar-Box" style="display: none;">
+  <img id="userAvatar" src="./images/user.png" alt="User avatar" width="30" height="35">
+</div>
+                    
+                </center>
+            </div>
+     
+        </div>
     </div>
+    
   </nav>
   <div class="container">
     <h1>Contact Us</h1>
@@ -99,13 +84,13 @@
 
     <div class="info">
       <h2>📍 Our Office</h2>
-      <p>Global Link Travel<br />7163 Yonge St. Unit 259<br />Thornhill, ON, Canada</p>
+      <p>Online</p>
 
       <h2>📞 Phone</h2>
-      <p>+1 (416) 246-9247</p>
+      <p>+1 (437) 318-9240</p>
 
       <h2>📧 Email</h2>
-      <p><a href="mailto:info@globallinktravel.com">info@globallinktravel.com</a></p>
+      <p><a href="mailto:jaskaranbrant@gmail.com">jaskaranbrant@gmail.com</a></p>
     </div>
   </div>
 
@@ -120,10 +105,11 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
       </ul>
-      <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+      <p class="text-center text-muted">© 2025 Freedom Flights</p>
     </footer>
   </div>
 </body>
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/contact-us.js"></script>

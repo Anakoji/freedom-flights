@@ -1,0 +1,32 @@
+
+.username{
+  color: white;
+  position: relative;
+  top: 15px;
+  right: 20px;
+}
+
+@media only screen and (max-width: 1200px) {
+  #hide-label{
+    display: none;
+  }
+}
+
+
+
+.avatar-Box{
+  height: 40px;
+  width: 40px;
+  color: red;
+  border: 2px solid black;
+  background-color: white;
+  position: relative;
+  top: 3px;
+}
+.avatar-Box2{
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+  background-color: white;
+
+}

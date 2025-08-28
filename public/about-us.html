@@ -9,28 +9,66 @@
 </head>
 <body>
 
-      <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+ <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Global Link Travel</a>
+      <a class="navbar-brand" id="hide-label" href="/">Freedom Flights</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
         aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarsExample06">
         <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-          <li class="nav-item"><a class="nav-link active" href="/">Flights</a></li>
-          <li class="nav-item"><a class="nav-link" href="/hotels">Hotels</a></li>
-          <li class="nav-item"><a class="nav-link" href="/cars">Cars</a></li>
-          <li class="nav-item"><a class="nav-link" href="/aboutUs">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contactUs">Contact Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="/employment">We're Hiring!</a></li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Flights</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/hotels">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cars">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutUs">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactUs">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employment">We're Hiring!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login" id="loggedInOrOut"></a>
+          </li>
         </ul>
+
       </div>
+      
+      <div style="display: flex;">
+      
+
+            <div>
+                
+                <span class="username"></span>
+            </div>
+            <div>
+                
+                <center> 
+   <div id="avatarContainer" class="avatar-Box" style="display: none;">
+  <img id="userAvatar" src="./images/user.png" alt="User avatar" width="30" height="35">
+</div>
+                    
+                </center>
+            </div>
+     
+        </div>
     </div>
+    
   </nav>
   <div class="container">
     <h1>About Us</h1>
-    <p>At <strong>Global Link Travel</strong>, we believe that every journey starts with a spark of curiosity—and we’re here to turn that spark into unforgettable adventures. Founded with a passion for exploration and a commitment to seamless travel experiences, our agency connects dreamers and doers with destinations that stir the soul.</p>
+    <p>At <strong>Freedom Flights</strong>, we believe that every journey starts with a spark of curiosity—and we’re here to turn that spark into unforgettable adventures. Founded with a passion for exploration and a commitment to seamless travel experiences, our agency connects dreamers and doers with destinations that stir the soul.</p>
 
     <h2>🌍 What We Do</h2>
     <ul>
@@ -49,7 +87,7 @@
     </ul>
 
     <h2>🌟 Our Mission</h2>
-    <p>To empower every traveler with ease, confidence, and a sense of wonder. From the moment you imagine your escape to the moment you return, Global Link Travel is your link to the world.</p>
+    <p>To empower every traveler with ease, confidence, and a sense of wonder. From the moment you imagine your escape to the moment you return, Freedom Flights is your link to the world.</p>
   </div>
 </body>
   <div class="b-example-divider"></div>
@@ -63,9 +101,11 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
       </ul>
-      <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+      <p class="text-center text-muted">© 2025 Freedom Flights</p>
     </footer>
   </div>
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="./js/about-us.js"></script>

@@ -5,224 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flight Itinerary</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-  <style>
-    body {
-      padding: 2rem;
-      background-color: #f9f9f9;
-    }
-    .itinerary-card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 2rem;
-      margin: auto;
-      max-width: 1000px;
-    }
-    .airline-logo {
-      border: 1px solid #ddd;
-      background: #fff;
-      padding: 4px;
-      border-radius: 4px;
-    }
-    .btn-confirm {
-      background-color: #007bff;
-      color: white;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/itinerary.css">
+
 </head>
 <body>
-  <h1 class="mb-4">Your Flight Itinerary</h1>
-  <div id="itinerary-container"></div>
-
-  <script src="./js/loadItineraryCard.js"></script>
-</body>
-</html>
-
-<!--  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Itinerary</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #f7f7fa;
-    }
-    .itinerary-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      padding: 2rem 2rem 1.5rem 2rem;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .itinerary-segment {
-      flex: 2 1 350px;
-      min-width: 300px;
-    }
-    .itinerary-info {
-      flex: 1 1 220px;
-      min-width: 200px;
-      border-left: 1px solid #eee;
-      padding-left: 2rem;
-    }
-    .airline-logo {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      margin-right: 1rem;
-    }
-    .flight-title {
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .flight-time {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1a1a1a;
-    }
-    .btn-confirm {
-      background: #ffc107;
-      color: #222;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      margin-top: 1rem;
-      transition: background 0.2s;
-    }
-    .btn-confirm:hover {
-      background: #e0a800;
-      color: #fff;
-    }
-    .progress {
-      height: 8px;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-    }
-    @media (max-width: 768px) {
-      .itinerary-card {
-        flex-direction: column;
-        padding: 1.2rem;
-      }
-      .itinerary-info {
-        border-left: none;
-        border-top: 1px solid #eee;
-        padding-left: 0;
-        padding-top: 1.5rem;
-        margin-top: 1.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Global Link Travel</a>
+      <a class="navbar-brand" id="hide-label" href="/">Freedom Flights</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
         aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarsExample06">
         <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-          <li class="nav-item"><a class="nav-link active" href="/">Flights</a></li>
-          <li class="nav-item"><a class="nav-link" href="/hotels">Hotels</a></li>
-          <li class="nav-item"><a class="nav-link" href="/cars">Cars</a></li>
-          <li class="nav-item"><a class="nav-link" href="/aboutUs">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contactUs">Contact Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="/employment">We're Hiring!</a></li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Flights</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/hotels">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cars">Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutUs">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactUs">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employment">We're Hiring!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login" id="loggedInOrOut"></a>
+          </li>
         </ul>
+
       </div>
+      
+      <div style="display: flex;">
+      
+
+            <div>
+                
+                <span class="username"></span>
+            </div>
+            <div>
+                
+                <center> 
+   <div id="avatarContainer" class="avatar-Box" style="display: none;">
+  <img id="userAvatar" src="./images/user.png" alt="User avatar" width="30" height="35">
+</div>
+                    
+                </center>
+            </div>
+     
+        </div>
     </div>
+    
   </nav>
 
-  <div class="container my-5">
-    <h2 class="mb-4 text-center">Your Itinerary</h2>
-    <div id="itinerary-container"></div>
-  </div>
-
-  <div class="container">
-    <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Flights</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Hotels</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Cars</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About us</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
-      </ul>
-      <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
-    </footer>
-  </div>
-  <script src="./js/loadItineraryCard.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html> -->
- <!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itinerary</title>
-</head>
-<body> 
-      <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Sixth navbar example">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Global Link Travel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
-                aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExample06">
-                <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Flights</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/hotels">Hotels</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/cars">Cars</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/aboutUs">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contactUs">Contact Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/employment">We're Hiring!</a>
-                    </li>
-
-                </ul>
-
-            </div>
-        </div>
-    </nav> 
-
- <center>
-
-    <pre id="data1">
-
-    </pre>
-</center> 
-
-<center>
-  <h2>Your Itinerary</h2>
+  <h1 class="mb-4">Your Flight Itinerary</h1>
   <div id="itinerary-container"></div>
-</center> 
-
-
-       <div class="b-example-divider"></div>
-  <div class="container">
+ <div class="container">
     <footer class="py-3 my-4">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Flights</a></li>
@@ -232,15 +79,13 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact us</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">We're hiring</a></li>
       </ul>
-      <p class="text-center text-muted">© 2025 Global Link Travel, Inc</p>
+      <p class="text-center text-muted">© 2025 Freedom Flights</p>
     </footer>
   </div>
 </body>
-<script src="./js/loadItinerary.js"></script>
-<script src="
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js
-"></script>
-<link href="
-https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
-" rel="stylesheet">
-</html>  -->
+  <script src="./js/loadItineraryCard.js"></script>
+  <script src="./js/itin-login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</html>
+
+

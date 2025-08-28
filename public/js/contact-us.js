@@ -1,91 +1,83 @@
 document.addEventListener("DOMContentLoaded", () => {
+ 
+  // ...rest of your avatar and username logic
+
   console.log("🚀 DOM fully loaded");
 
-  const userName = document.getElementById("userName");
-  const passWord = document.getElementById("passWord");
   const loginButton = document.getElementById("loginButton");
   const logoutBtn = document.getElementById("loggedInOrOut");
   const avatarImg = document.getElementById("userAvatar");
   const avatarContainer = document.getElementById("avatarContainer");
   const usernameDisplay = document.querySelector(".username");
 
-  // 🧠 Login logic
-  loginButton?.addEventListener("click", async () => {
-    console.log("You username is : " + userName.value);
+  const rawUsername = localStorage.getItem("loggedInUser");
 
-    const baseUrl = "http://localhost:5000/login";
-    const response = await fetch(baseUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        username: userName.value,
-        password: passWord.value,
-      }),
-    });
+  if (rawUsername) {
+    const formattedUsername = capitalizeUnderscoreName(rawUsername);
+    usernameDisplay.textContent = formattedUsername;
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Success:", data);
+    // ✅ Only show avatar if logged in
+    const avatarPath = localStorage.getItem("userAvatar") || "./images/user.png";
+    avatarImg.src = avatarPath;
+    avatarContainer.style.display = "inline-block";
+  } else {
+    usernameDisplay.textContent = "";
+    avatarImg.src = "";
+    avatarContainer.style.display = "none";
+  }
 
-      const formattedUsername = capitalizeUnderscoreName(data.username);
-      localStorage.setItem("loggedInUser", formattedUsername);
-      usernameDisplay.textContent = formattedUsername;
+  updateLoginStatus();
 
-      const avatarPath = data.avatar?.trim() ? data.avatar : "./images/user.png";
-      avatarImg.src = avatarPath;
-      localStorage.setItem("userAvatar", avatarPath);
-      avatarContainer.style.display = "inline-block";
-
-      updateLoginStatus();
-      loginSuccessful(data.message);
+      
       // Redirect to a new URL
-      window.location.href = "http://localhost:5000/";
-    } else {
-      const errorData = await response.json();
-      console.error("Error from server:", errorData);
-      loginFailed(errorData.error);
-    }
-  });
+     
+  
 
 document.getElementById("loggedInOrOut").addEventListener("click", async (e) => {
+  e.preventDefault(); // Prevent default link behavior
+
   const isLoggedIn = localStorage.getItem("loggedInUser") !== null;
-e.preventDefault();
+
   if (!isLoggedIn) {
-    alert("Please log in.");
+    window.location.href = "http://localhost:5000/login";
     return;
   }
 
   try {
-    // 🔥 Clear localStorage
     localStorage.removeItem("loggedInUser");
     localStorage.removeItem("userAvatar");
 
-    // 👇 Clear auth cookie on backend
     const response = await fetch("http://localhost:5000/logout", {
       method: "POST",
       credentials: "include",
     });
 
-    if (!response.ok) {
-      throw new Error("Logout request failed");
-    }
+    if (!response.ok) throw new Error("Logout request failed");
 
-    console.log("🍪 Auth cookie cleared.");
+    await removeAuth();
 
-    // 🧼 Reset UI
-    document.querySelector(".username").textContent = "";
-    document.getElementById("userAvatar").src = "";
-    document.getElementById("avatarContainer").style.display = "none";
-    document.getElementById("loggedInOrOut").textContent = "Log In";
-    document.getElementById("userDashboard").style.display = "none";
+    // Reset UI safely
+    const usernameEl = document.querySelector(".username");
+    if (usernameEl) usernameEl.textContent = "";
+
+    const avatarEl = document.getElementById("userAvatar");
+    if (avatarEl) avatarEl.src = "";
+
+    const avatarContainerEl = document.getElementById("avatarContainer");
+    if (avatarContainerEl) avatarContainerEl.style.display = "none";
+
+    const loginStatusEl = document.getElementById("loggedInOrOut");
+    if (loginStatusEl) loginStatusEl.textContent = "Login";
 
     alert("You have been logged out.");
-    updateLoginStatus();
-    removeAuth();
+
+    // Redirect after short delay
+    setTimeout(() => {
+      window.location.href = "http://localhost:5000/login";
+    }, 500);
+
   } catch (err) {
-    // console.error("Failed to log out:", err);
-    // alert("Logout failed. Please try again.");
+    console.error("Failed to log out:", err);
   }
 });
 
@@ -159,6 +151,3 @@ function capitalizeUnderscoreName(name) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join("_");
 }
-
-
-
